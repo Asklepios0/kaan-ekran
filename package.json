@@ -1,0 +1,12 @@
+{
+  "name": "kaan-elektronik-tv-ekran",
+  "version": "2.0.0",
+  "description": "Kaan Elektronik Hasanpasa Showroom 7/24 Digital Signage Kiosk Sistemi",
+  "main": "backend/server.py",
+  "scripts": {
+    "start": "python backend/server.py",
+    "sync": "python backend/scraper.py"
+  },
+  "author": "Kaan Elektronik",
+  "license": "ISC"
+}

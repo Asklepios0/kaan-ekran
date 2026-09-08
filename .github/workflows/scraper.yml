@@ -1,0 +1,46 @@
+name: Saatlik Yorum ve Medya Senkronizasyonu
+
+on:
+  schedule:
+    # Her saat başı otomatik çalışır (dakika: 0)
+    - cron: '0 * * * *'
+  workflow_dispatch: # GitHub panelinden "Run workflow" butonuyla anında tetiklenebilir
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Depoyu İndir (Checkout)
+        uses: actions/checkout@v4
+
+      - name: 2. Python Ortamını Hazırla
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 3. Bağımlılıkları ve Chromium Tarayıcısını Kur
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: 4. Google Maps ve Instagram Kazıyıcıyı Çalıştır
+        run: |
+          python backend/scraper.py
+
+      - name: 5. Güncellenen Verileri Depoya Kaydet ve Yayınla
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add cache/data.json frontend/data.json frontend/js/fallback-data.js cache/media/ || true
+          if git diff --staged --quiet; then
+            echo "Yeni bir yorum veya gönderi bulunamadı. Commit atılmadı."
+          else
+            git commit -m "chore(data): otomatik saatlik vitrin verisi guncellemesi [skip ci]"
+            git push
+          fi

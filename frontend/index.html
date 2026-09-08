@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaan Elektronik - Smart TV Kiosk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dark">
+
+  <!-- AMBIENT LIGHT REFRACTION MESH (APPLE LIQUID GLASS UNDERLAYER) -->
+  <div class="ambient-glow-mesh" aria-hidden="true">
+    <div class="ambient-orb orb-red"></div>
+    <div class="ambient-orb orb-cyan"></div>
+    <div class="ambient-orb orb-amber"></div>
+  </div>
+
+  <!-- HEADER (MACOS FLOATING FROSTED DYNAMIC BAR) -->
+  <header>
+    <div class="brand-container">
+      <div class="logo-box">
+        <img src="assets/logo.svg" alt="Kaan Elektronik" class="logo-img" id="imgLogo" width="220" height="38" onerror="this.style.display='none'; document.getElementById('svgLogo').style.display='block';">
+        <svg id="svgLogo" class="logo-svg" width="220" height="38" style="display:none;" viewBox="0 0 450 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="skewX(-14)">
+            <path d="M15 5 L32 5 L20 32 L36 58 L19 58 L8 34 L8 58 L0 58 L0 5 Z" fill="#e31e24"/>
+            <path d="M38 10 L68 10 L68 18 L48 18 L48 27 L64 27 L64 35 L48 35 L48 49 L70 49 L70 58 L38 58 Z" fill="#e31e24"/>
+          </g>
+          <g transform="skewX(-14)">
+            <text x="85" y="46" fill="currentColor" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" letter-spacing="2">KAAN</text>
+            <text x="215" y="46" fill="currentColor" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="36" letter-spacing="2">ELEKTRONİK</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="store-badge-rating" id="storeRatingBadge">
+        <span class="star-icon">&#9733;</span>
+        <span class="rating-num">4.8</span>
+        <span class="rating-sub">(6.153 Yorum)</span>
+      </div>
+
+      <div class="store-weather-badge" id="weatherBadge" title="Canlı Hava Durumu">
+        <span class="weather-icon" id="weatherIcon">☀️</span>
+        <span class="weather-temp" id="weatherTemp">23°C</span>
+        <span class="weather-wind" id="weatherWind">💨 18 km/s</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- APPLE-STYLE COLLAPSED CONTROL CENTER -->
+      <div class="control-center-wrapper">
+        <button class="action-btn control-btn" id="btnControlsToggle" title="Ayarlar & Kontroller" onclick="toggleControlsMenu(event)">
+          <span>⚙️</span>
+          <span class="action-label">Kontroller</span>
+        </button>
+
+        <div class="control-menu-popover" id="controlsMenu" style="display:none;" onclick="event.stopPropagation()">
+          <button class="menu-item" id="btnAudioToggle" onclick="toggleAudio()">
+            <span id="audioIcon">🔇</span>
+            <span id="audioLabel">Sesi Aç</span>
+          </button>
+          <button class="menu-item" id="btnPauseToggle" onclick="togglePause()">
+            <span id="pauseIcon">⏸️</span>
+            <span id="pauseLabel">Akışı Durdur</span>
+          </button>
+          <button class="menu-item" id="btnSpeedToggle" onclick="cycleSpeed()">
+            <span id="speedIcon">⚡</span>
+            <span id="speedLabel">1.0x Hız</span>
+          </button>
+          <button class="menu-item" id="btnThemeToggle" onclick="toggleTheme()">
+            <span id="themeIcon">🌓</span>
+            <span id="themeLabel">Temayı Değiştir</span>
+          </button>
+          <button class="menu-item" id="btnFullscreen" onclick="toggleFullscreen()">
+            <span id="fullscreenIcon">⛶</span>
+            <span id="fullscreenLabel">Tam Ekran</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span>CANLI YAYIN</span>
+      </div>
+
+      <div class="header-clock-group">
+        <div class="header-date" id="liveDate">--</div>
+        <div class="header-clock" id="liveClock">12:00:00</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3 DİKEY PANEL (SMART TV DASHBOARD) -->
+  <main class="dashboard-grid">
+    
+    <!-- SOL: DOĞRULANMIŞ MÜŞTERİ YORUMLARI -->
+    <section class="column" id="col-left">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-title-indicator"></span>
+          <span class="col-title" id="title-left">Müşteri Yorumları</span>
+          <button class="btn-reset-col" id="reset-left" onclick="resetColumn('col-left')">Varsayılana Dön</button>
+        </div>
+        <div class="col-meta" id="meta-left">&#9733; 4.8 &bull; 6.153 Yorum</div>
+      </div>
+      <div class="stream-viewport" id="vp-left">
+        <div class="stream-runner" id="runner-left"></div>
+      </div>
+    </section>
+
+    <!-- ORTA: AKILLI TV REELS OYNATICI -->
+    <section class="column" id="col-mid">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-title-indicator"></span>
+          <span class="col-title" id="title-mid">Reels Videoları</span>
+          <button class="btn-reset-col" id="reset-mid" onclick="resetColumn('col-mid')">Varsayılana Dön</button>
+        </div>
+        <div class="col-meta" id="meta-mid">
+          <span id="reelAccountMeta" class="channel-tag-pill">@kaanelektronikk</span>
+          <span id="reelCounterMeta" style="margin-left:6px;">1/7</span>
+        </div>
+      </div>
+
+      <!-- REELS PLAYER COMPONENT -->
+      <div class="reels-player-container" id="reelsPlayerContainer" onclick="advanceToNextReel()">
+        <div class="reels-progress-wrap">
+          <div class="reels-progress-fill" id="reelProgressBar"></div>
+        </div>
+        <div class="reels-stage">
+          <video id="activeReelVideo" playsinline autoplay muted loop></video>
+          <img id="activeReelPoster" src="" alt="Reels Poster" style="display:none;">
+          <div class="reels-gradient-scrim"></div>
+        </div>
+        <div class="reels-card-overlay">
+          <div class="reels-author-badge-row">
+            <span class="reels-author-pill" id="reelAuthorBadge">@kaanelektronikk</span>
+            <span class="reels-verified-icon">✓ Doğrulandı</span>
+            <span class="reels-tag-pill" id="reelCategoryBadge">Ürün İnceleme</span>
+          </div>
+          <div class="reels-caption-box" id="reelCaptionText">KnMaster Titreşim Sönümleyicili Telefon Tutucu Testi! 🏍️📱</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAĞ: KAANELEKTRONIK.COM MOBİL CANLI AKIŞI -->
+    <section class="column" id="col-right">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-title-indicator"></span>
+          <span class="col-title" id="title-right">Online Mağaza</span>
+          <button class="btn-reset-col" id="reset-right" onclick="resetColumn('col-right')">Varsayılana Dön</button>
+        </div>
+        <div class="col-meta" id="meta-right">kaanelektronik.com</div>
+      </div>
+
+      <div class="web-stream-wrapper">
+        <iframe id="webStreamFrame" src="stream-store.html" class="web-stream-frame" title="kaanelektronik.com Canlı Görünüm" loading="lazy"></iframe>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SAĞ ALT ULTRA-ŞEFFAF SENKRONİZASYON BİLGİSİ -->
+  <div class="sync-counter" title="Anında Eşitlemek İçin Dokunun" onclick="triggerManualSync()">
+    <span class="sync-icon" id="syncSpinIcon">🔄</span>
+    Sonraki Senkronizasyon: <span id="countdown">60:00</span>
+  </div>
+
+  <!-- BİLGİLENDİRME TOAST BİLEŞENİ -->
+  <div class="toast-notification" id="toastBox">İşlem tamamlandı</div>
+
+  <!-- KART DETAY / İNCELEME MODALI -->
+  <div class="modal-overlay" id="cardDetailModal" onclick="closeCardDetailModal(event)">
+    <div class="modal-box modal-detail-box" onclick="event.stopPropagation()">
+      <div class="modal-header-row">
+        <div class="detail-badge" id="detailBadge">MÜŞTERİ DEĞERLENDİRMESİ</div>
+        <button class="modal-close-x" onclick="closeCardDetailModal()">&times;</button>
+      </div>
+      <div class="detail-content" id="detailContent">
+        <!-- Tıklanan kartın detayları buraya aktarılır -->
+      </div>
+      <div class="detail-footer" style="margin-top:20px;">
+        <button class="modal-btn" style="width:100%;" onclick="closeCardDetailModal()">Kapat (ESC)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- KANAL YERLEŞİMİ MODALI -->
+  <div class="modal-overlay" id="switchModal" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 id="modalTitle">Kanal Yerleşimi</h3>
+      <p id="modalDesc">Seçilen akış hangi sütuna yerleşsin?</p>
+      <div class="modal-actions">
+        <button class="modal-btn" onclick="executeSwitch('col-left')">Sol Panel</button>
+        <button class="modal-btn" onclick="executeSwitch('col-mid')">Orta Panel</button>
+        <button class="modal-btn" onclick="executeSwitch('col-right')">Sağ Panel</button>
+      </div>
+      <button class="modal-btn" style="width:100%; margin-top:14px;" onclick="closeModal()">Vazgeç</button>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/fallback-data.js"></script>
+  <script src="js/virtual-scroller.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

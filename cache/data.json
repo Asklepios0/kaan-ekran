@@ -1,0 +1,572 @@
+{
+  "store": {
+    "name": "Kaan Elektronik",
+    "tag": "Kaan Elektronik",
+    "rating": 4.8,
+    "totalReviews": 6153,
+    "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
+  },
+  "lastSync": "2026-09-08T00:31:49.906181",
+  "reviews": [
+    {
+      "id": "gmap-b7fce0d765",
+      "name": "Mertovski",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KN2300PRO intercom aldim ankarada motoversal isimli saticidan, neyse kurdum intercomda sesler bi garip geliyodu yani çok tiz şekilde muzik seslerini telefondan bass ayari yaparak anca dinlenebilir hale getirdim yoksa muzik dinlenilmezdi o …",
+      "isNew": false
+    },
+    {
+      "id": "gmap-df6e486c21",
+      "name": "KAYA KAYA",
+      "date": "6 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Çalışanlar çok kibar. Ürünleri yerli ve milli olma yolunda ilerliyor. Tasarım kendilerine ait olsa da yurt içinde de üretim yaparlarsa muazzam olur. Almak isteğim ürünü çalışan beyfendi çok güzel açıkladı, çok pahalı bir ürün olmasa da ilgi ve alaka gayet iyi.",
+      "isNew": false
+    },
+    {
+      "id": "gmap-50fdae45a6",
+      "name": "Arda Dağlı",
+      "date": "4 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Garantiye ürün getirdim çok güzel ilgilendiler ürünüm kirliydi temizleyip şarj edip teslim ettiler geç kalmış olmama rağmen teslim sağladılar çok memnunum",
+      "isNew": false
+    },
+    {
+      "id": "gmap-fac558b7fa",
+      "name": "Zedus",
+      "date": "6 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Ürünleri gerçekten çok kaliteli, ayrıca taşıma çantası vermeleri de çok güzel. Sena Hanım'a desteği için teşekkür ederim. Buradan beni bu markayla tanıştıran Yücel abiye (ProSofi) selam olsun.",
+      "isNew": false
+    },
+    {
+      "id": "gmap-a8bb96785e",
+      "name": "Oğuz Kaya",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Aldığım intercomu taksite bölmeleri çok güzel. Can Bey'le montaj ve ürünü anlatmada ki üslubu için ayrıca teşekkür ederim",
+      "isNew": false
+    },
+    {
+      "id": "gmap-996483a628",
+      "name": "Aydın Sait Bahtiyar",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kn 2300 pro interkom batarya süresi tam bir ay teşekkürler kaan elektronik bu ikinci interkom sizden aldığım cardo kullanıyor dum her akşam şarj etmek ten bıkkınlık gelmişti Sizden ricam mikrofonların su geçirmeyecek şekilde dizayn edilmesi üretim aşamasında bu sorunu da çözerseniz mükemmel olur",
+      "isNew": false
+    },
+    {
+      "id": "gmap-a1c23ebd3f",
+      "name": "Ekrem Mızrak",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Can bey yaşadığım etnik problemleri hızlıca çözüp zaman kaybetmeden işlemi gerçekleştirdi güler yüzlülüğü ve hoş görüşü ile destek sağladı",
+      "isNew": false
+    },
+    {
+      "id": "gmap-bc7118f77a",
+      "name": "edip camus",
+      "date": "9 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "İnterkomum geldi sandıgımdan çok daha iyi hatta söyle bir olay bile yaşadım yüksek hızda arkadaşımla telefondan görüşüyordum nerdesin dediginde motorun üstünde oldugumu belirttim inandıramadım sen evdesin dedi 🤷‍♂️😀 …",
+      "isNew": false
+    },
+    {
+      "id": "rev-1",
+      "name": "Görkem Çolak",
+      "date": "Bugün",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KnMaster kask içi kulaklık aldım, çalışan arkadaş kaskıma hemen montajını yaptı. İlgi ve işçilik harika.",
+      "isNew": true
+    },
+    {
+      "id": "rev-2",
+      "name": "Sinan Tan",
+      "date": "Dün",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Titreşim modüllü telefon tutucu aldım. 120 km hızda gram titreme yapmıyor, en dürüst motorcu esnafı.",
+      "isNew": false
+    },
+    {
+      "id": "rev-3",
+      "name": "Mertovski (Yerel Rehber)",
+      "date": "2 gün önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KN2300PRO interkom aldım, kurulumda yardımcı oldular. Ses kalitesi, bas ayarları ve kask içi mikrofon netliği mükemmel.",
+      "isNew": false
+    },
+    {
+      "id": "rev-4",
+      "name": "Murat Kurt",
+      "date": "3 gün önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "İntercom bağlantısı için uğradım, 10 dakikada diğer kaskla eşleştirdiler. Çok bilgili ve samimi bir ekip.",
+      "isNew": false
+    },
+    {
+      "id": "rev-5",
+      "name": "Alp Eren Kaya",
+      "date": "4 gün önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Sis farı tesisatı ve çakar modülü montajı yapıldı. Kablolar fabrikasyon gibi gizlendi, ellerinize sağlık.",
+      "isNew": false
+    },
+    {
+      "id": "rev-6",
+      "name": "Zafer Demir",
+      "date": "5 gün önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kaan Elektronik kalitesi tartışılmaz, internetten alıp Hasanpaşa mağazasından teslim aldım. İlginiz için teşekkürler.",
+      "isNew": false
+    },
+    {
+      "id": "rev-7",
+      "name": "Barış Koç",
+      "date": "1 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Gidon çantası su geçirmezliği başarılı, sağanak yağmurda test ettim fermuarlar sızdırmadı.",
+      "isNew": false
+    },
+    {
+      "id": "rev-8",
+      "name": "Onur Aktaş",
+      "date": "1 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Hasanpaşa mağazası motosiklet aksesuarlarında Kadıköy bölgesinin 1 numarası. Ürün çeşitliliği çok geniş.",
+      "isNew": false
+    },
+    {
+      "id": "rev-9",
+      "name": "Serdar Yalçın",
+      "date": "1 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KnMaster intercom ses kalitesi beklediğimden çok daha berrak. Rüzgar sesi engellemesi başarılı.",
+      "isNew": false
+    },
+    {
+      "id": "rev-10",
+      "name": "Burak Özdemir",
+      "date": "2 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kask kamerası aparatı ve hızlı şarj montajı yaptırdım. Titiz işçilik ve kaliteli parça arayanlara önerilir.",
+      "isNew": false
+    },
+    {
+      "id": "rev-11",
+      "name": "Emre Can Şen",
+      "date": "2 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Motosiklet alarmı ve takip cihazı kurulumunu Hasanpaşa şubesinde yaptırdım. Çok memnun kaldım.",
+      "isNew": false
+    },
+    {
+      "id": "rev-12",
+      "name": "Tolga Aydın",
+      "date": "2 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Gidon yükseltme kiti aldım. Duruş pozisyonu çok rahatladı, montaj tavsiyeleri için sağ olun.",
+      "isNew": false
+    },
+    {
+      "id": "rev-13",
+      "name": "Hüseyin Yıldız",
+      "date": "3 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KnMaster ürünlerini yıllardır kullanıyorum. Hasanpaşa'daki mağazada birebir deneyip almak büyük avantaj.",
+      "isNew": false
+    },
+    {
+      "id": "rev-14",
+      "name": "Kaan Yılmaz",
+      "date": "3 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "İntercom şarj soketi arızalanmıştı, hemen serviste parça değişimiyle çözdüler. Müşteri memnuniyeti odaklılar.",
+      "isNew": false
+    },
+    {
+      "id": "rev-15",
+      "name": "Caner Güneş",
+      "date": "3 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Telefon tutucu kablosuz şarj aparatını test ettim, yağmurda su geçirmiyor, manyetik kilit sistemi çok sağlam.",
+      "isNew": false
+    },
+    {
+      "id": "rev-16",
+      "name": "Doğukan Çetin",
+      "date": "1 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kadıköy Hasanpaşa'nın en profesyonel motosiklet elektronik mağazası. Fiyatlar internet ile aynı ve şeffaf.",
+      "isNew": false
+    },
+    {
+      "id": "rev-17",
+      "name": "Oğuzhan Tekin",
+      "date": "1 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Sis farı rölesi ve gidon açma-kapama anahtarı aldım. Ürünlerin malzeme kalitesi gerçekten birinci sınıf.",
+      "isNew": false
+    },
+    {
+      "id": "rev-18",
+      "name": "Sefa Arslan",
+      "date": "1 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kask temizleme seti ve buğu önleyici pinlock montajını hemen yaptılar. Teşekkürler Kaan Elektronik.",
+      "isNew": false
+    },
+    {
+      "id": "rev-19",
+      "name": "İlker Bayrak",
+      "date": "1 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KnMaster kask kulaklığı basları ve netliği inanılmaz. Uzun yolda telefonla konuşurken karşı taraf motor sesini duymuyor.",
+      "isNew": false
+    },
+    {
+      "id": "rev-20",
+      "name": "Batuhan Sever",
+      "date": "1 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Hasanpaşa mağazasına her gelişimde güler yüz ve teknik destek buluyorum. Kesinlikle tavsiye ederim.",
+      "isNew": false
+    },
+    {
+      "id": "rev-21",
+      "name": "Mehmet Ali Karaca",
+      "date": "1 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Lastik basınç sensörü (TPMS) aldım. Ekranda anlık basınç ve sıcaklık göstermesi güven veriyor.",
+      "isNew": false
+    },
+    {
+      "id": "rev-22",
+      "name": "Cem Doğan",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Hızlı kargo ve mağazadan teslim seçeneği harika. Yedek parça konusunda daima stoklular.",
+      "isNew": false
+    },
+    {
+      "id": "rev-23",
+      "name": "Erhan Keskin",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kask kamerasının çene montaj aparatını tam oturttular, sürüş açısı kusursuz oldu.",
+      "isNew": false
+    },
+    {
+      "id": "rev-24",
+      "name": "Furkan Şahin",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KnMaster ürün gamı Türkiye standartlarının çok üstünde. Hasanpaşa mağazasını mutlaka ziyaret edin.",
+      "isNew": false
+    },
+    {
+      "id": "rev-25",
+      "name": "Yavuz Selim Akın",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Motosiklet brandası ve zincir kilit aldım. Kumaş kalınlığı ve kilit gövdesi çok sağlam.",
+      "isNew": false
+    },
+    {
+      "id": "rev-26",
+      "name": "Uğur Polat",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Gidon çantası dokunmatik ekran geçirgenliği başarılı, navigasyonu eldivenle rahatça kontrol edebiliyorum.",
+      "isNew": false
+    },
+    {
+      "id": "rev-27",
+      "name": "Tarık Yaman",
+      "date": "3 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Kask içi bluetooth kulaklıkta şarj 3 hafta gidiyor. Günlük işe gidiş gelişte şarj etmeyi unuttum.",
+      "isNew": false
+    },
+    {
+      "id": "rev-28",
+      "name": "Bora Vural",
+      "date": "3 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "LED sis farı aydınlatması karanlık dağ yollarını gündüze çevirdi. Odaklama merceği çok iyi.",
+      "isNew": false
+    },
+    {
+      "id": "rev-29",
+      "name": "Kerem Taşkın",
+      "date": "3 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KnMaster Hasanpaşa mağazası personeli motosiklet sürücüsü olduğu için neye ihtiyacınız olduğunu hemen anlıyor.",
+      "isNew": false
+    },
+    {
+      "id": "rev-30",
+      "name": "Ahmet Faruk Yurt",
+      "date": "4 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "İnterkom güncellemesi için geldim, yazılımı hemen son sürüme yükselttiler. Satış sonrası destek 10/10.",
+      "isNew": false
+    }
+  ],
+  "reels": [
+    {
+      "id": "reel-1",
+      "title": "KnMaster Titreşim Sönümleyicili Telefon Tutucu Testi! 🏍️📱",
+      "tag": "Ürün İnceleme",
+      "author": "@kaanelektronikk",
+      "img": "/cache/media/010a754746cf815ef38b58d15f33b927.jpg",
+      "videoUrl": "",
+      "isNew": true
+    },
+    {
+      "id": "reel-2",
+      "title": "Hasanpaşa Atölye: İçi Kulaklık ve İntercom Montaj Detayları",
+      "tag": "Atölye Montaj",
+      "author": "@kaanelektronikk",
+      "img": "/cache/media/016397170a47912bf220c4685a2326c9.jpg",
+      "videoUrl": "",
+      "isNew": true
+    },
+    {
+      "id": "reel-3",
+      "title": "Yağmurda Su Geçirmezlik Testi: Gidon Çantası ve Koruma Kılıfı",
+      "tag": "Dayanıklılık Testi",
+      "author": "@knmasterofficial",
+      "img": "/cache/media/02c82f0bae1bbf9b483dda3e971a1ddd.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "reel-4",
+      "title": "Gece Sürüşü İçin Güçlendirilmiş LED Sis Farı Kurulumu",
+      "tag": "Montaj Rehberi",
+      "author": "@kaanelektronikk",
+      "img": "/cache/media/0809fe8b3b0b713955a6059564c212ce.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "reel-5",
+      "title": "Gidon Yükseltme ve Açılı Telefon Tutucu Aparatı",
+      "tag": "Ürün Tanıtımı",
+      "author": "@knmasterofficial",
+      "img": "/cache/media/0821f643975df9ba607d4351f380b58d.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "reel-6",
+      "title": "KN2300PRO Çoklu İntercom Eşleştirme Nasıl Yapılır?",
+      "tag": "Teknik Destek",
+      "author": "@knmasterofficial",
+      "img": "/cache/media/09e4dd040095332bd463c37736863b46.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "reel-7",
+      "title": "CNC Alüminyum Ayna Uzatma ve Titreşim Önleyici Adaptör",
+      "tag": "Aksesuar",
+      "author": "@kaanelektronikk",
+      "img": "/cache/media/0ee03eff9d6cd2f6c4ae90e585956a71.jpg",
+      "videoUrl": "",
+      "isNew": false
+    }
+  ],
+  "posts": [
+    {
+      "id": "ig-kaanelektronikk-4f9e97dc",
+      "author": "@kaanelektronikk",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "/cache/media/4f9e97dcf88ef51df2d5addc8650bdcf.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-4fb641b9",
+      "author": "@kaanelektronikk",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "/cache/media/4fb641b9e7eba1531c9792d449c855c3.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-cae79684",
+      "author": "@kaanelektronikk",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "/cache/media/cae79684022029c3a7d85a2dc59f05e6.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-b14a009a",
+      "author": "@kaanelektronikk",
+      "text": "KnMaster Uygun Fi̇yatli Taki̇p Ci̇hazi Kn Tag1",
+      "img": "/cache/media/b14a009a1d22d912710602636707c5f5.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-075325b5",
+      "author": "@kaanelektronikk",
+      "text": "KnMaster Kamera  Kamera Aparatlari  Aparatlari Mc-200 Mc-200L",
+      "img": "/cache/media/075325b5643f29b60783a87183fe2a28.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-c01f03ec",
+      "author": "@kaanelektronikk",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "/cache/media/c01f03ecb61203c0e0ce4565bb971c86.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-0b3b80f6",
+      "author": "@kaanelektronikk",
+      "text": "KnMaster Honda  Hondapcx  Pcx Uyumlu Aksesuarlari",
+      "img": "/cache/media/0b3b80f68978f0c121d17ed4e6ba88fd.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-kaanelektronikk-7aaf8f32",
+      "author": "@kaanelektronikk",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "/cache/media/7aaf8f3219956ada13ec4b3c7e226e04.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-42032ad5",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "/cache/media/42032ad51ff05ad495e982385949acaf.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-a1e2259e",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "/cache/media/a1e2259ed6e6fe72c850f862641709c5.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-81548fad",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "/cache/media/81548fadc5e3830f08df75f71ee5f315.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-accd1172",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Uygun Fi̇yatli Taki̇p Ci̇hazi Kn Tag1",
+      "img": "/cache/media/accd1172664cd3841fd22836cc943b1b.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-bad41a83",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "/cache/media/bad41a836a25bb0cc8f8e2516a22487e.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-1148c24a",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Elc İk Elc İkkoruma Koruma",
+      "img": "/cache/media/1148c24a74f0a2b0f78383ede3144d45.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-a73fe74c",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "/cache/media/a73fe74ccff3a58d253773f6940ce235.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-df52f4ea",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "/cache/media/df52f4ea5340d375bed921198bdc8aac.jpg",
+      "videoUrl": "",
+      "isNew": false
+    }
+  ],
+  "channels": {
+    "knmaster_ig": {
+      "title": "KnMaster Instagram",
+      "handle": "@knmasterofficial",
+      "desc": "Resmi KnMaster ürün tanıtımları, lansmanlar ve kullanıcı paylaşımları."
+    },
+    "kaan_yt": {
+      "title": "Kaan YouTube TV",
+      "handle": "@kaanelektronikkk",
+      "desc": "Montaj rehberleri, atölye videoları ve motosiklet aksesuarları testleri."
+    },
+    "knmaster_yt": {
+      "title": "KnMaster İncelemeler",
+      "handle": "@knmasterofficial",
+      "desc": "İntercom karşılaştırmaları, ses testleri ve detaylı donanım incelemeleri."
+    },
+    "website": {
+      "title": "Online Mağaza",
+      "handle": "kaanelektronik.com",
+      "desc": "Tüm motosiklet aksesuarlarında aynı gün kargo ve mağazadan teslim avantajı."
+    }
+  },
+  "status": "synced"
+}
