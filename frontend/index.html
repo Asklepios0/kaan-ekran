@@ -97,7 +97,7 @@
           <div class="reels-progress-fill" id="reelProgressBar"></div>
         </div>
         <div class="reels-stage">
-          <video id="activeReelVideo" playsinline autoplay muted loop></video>
+          <video id="activeReelVideo" playsinline autoplay muted preload="auto"></video>
           <img id="activeReelPoster" src="assets/reels/reel-1.jpg" alt="" style="display:none;" onerror="this.onerror=null; this.src='assets/reels/reel-1.jpg';">
           <div class="reels-gradient-scrim"></div>
         </div>
@@ -123,7 +123,7 @@
       </div>
 
       <div class="web-stream-wrapper">
-        <iframe id="webStreamFrame" src="stream-store.html" class="web-stream-frame" title="kaanelektronik.com Canlı Görünüm" loading="lazy"></iframe>
+        <iframe id="webStreamFrame" src="mobile-site.html" class="web-stream-frame" title="kaanelektronik.com Canlı Görünüm" loading="eager"></iframe>
       </div>
     </section>
 
@@ -169,8 +169,8 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="js/fallback-data.js?v=2.3"></script>
-  <script src="js/virtual-scroller.js?v=2.3"></script>
-  <script src="js/app.js?v=2.3"></script>
+  <script src="js/fallback-data.js?v=2.5"></script>
+  <script src="js/virtual-scroller.js?v=2.5"></script>
+  <script src="js/app.js?v=2.5"></script>
 </body>
 </html>

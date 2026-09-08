@@ -16,21 +16,22 @@ let toastTimeout = null;
 const fallbackData = (typeof window !== 'undefined' && window.KIOSK_FALLBACK) ? window.KIOSK_FALLBACK : {};
 
 // Media URL resolver (supports local server, GitHub Pages subpaths, and root paths)
+// Media URL resolver (supports local server, GitHub Pages subpaths, and root paths)
 function resolveMediaUrl(url) {
   const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
-  const defaultReel = isInsideFrontend ? 'assets/reels/reel-1.jpg' : 'frontend/assets/reels/reel-1.jpg';
+  const defaultReel = isInsideFrontend ? 'assets/reels/reel-1.mp4' : 'frontend/assets/reels/reel-1.mp4';
   
   if (!url) return defaultReel;
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
   
   let clean = url.replace(/^\/+/, '');
   
-  // Any legacy or cached /cache/media/ paths mapped deterministically to bundled high-res reels
+  // Any legacy or cached /cache/media/ paths mapped deterministically to bundled MP4 reels
   if (clean.includes('cache/media')) {
     let hash = 0;
     for (let i = 0; i < clean.length; i++) hash = (hash + clean.charCodeAt(i)) % 8;
     const mapped = (hash + 1);
-    return isInsideFrontend ? `assets/reels/reel-${mapped}.jpg` : `frontend/assets/reels/reel-${mapped}.jpg`;
+    return isInsideFrontend ? `assets/reels/reel-${mapped}.mp4` : `frontend/assets/reels/reel-${mapped}.mp4`;
   }
   
   if (clean.startsWith('frontend/assets/')) {
@@ -441,75 +442,51 @@ function playReel(idx) {
   if (accountMeta) accountMeta.innerText = author;
   if (counterMeta) counterMeta.innerText = `${activeReelIndex + 1}/${list.length}`;
   if (captionText) captionText.innerText = reel.title || '';
-  if (categoryBadge) categoryBadge.innerText = reel.tag || 'Öne Çıkan';
+  if (categoryBadge) categoryBadge.innerText = reel.tag || 'Reels';
 
   if (reelProgressTimer) clearInterval(reelProgressTimer);
   if (reelStepTimer) clearTimeout(reelStepTimer);
   if (progressFill) progressFill.style.width = '0%';
 
-  if (reel.videoUrl && reel.videoUrl.trim().length > 4) {
+  const videoSrc = resolveMediaUrl(reel.videoUrl || `assets/reels/reel-${(activeReelIndex % 8) + 1}.mp4`);
+
+  if (videoEl) {
     if (posterEl) posterEl.style.display = 'none';
-    if (videoEl) {
-      videoEl.style.display = 'block';
-      videoEl.src = resolveMediaUrl(reel.videoUrl);
-      videoEl.muted = window.isKioskMuted;
-      videoEl.currentTime = 0;
-      videoEl.play().catch(() => {});
+    videoEl.style.display = 'block';
 
-      videoEl.onended = () => {
-        advanceToNextReel();
-      };
+    videoEl.muted = window.isKioskMuted;
+    videoEl.playsInline = true;
 
-      videoEl.ontimeupdate = () => {
-        if (videoEl.duration && progressFill) {
-          const pct = (videoEl.currentTime / videoEl.duration) * 100;
-          progressFill.style.width = `${pct}%`;
-        }
-      };
-    }
-  } else {
-    // Görsel reel vitrin modu: 6.5 saniye dinamik zoom efekti ve hikaye ilerleme çubuğu
-    if (videoEl) {
-      videoEl.pause();
-      videoEl.style.display = 'none';
-      videoEl.onended = null;
-      videoEl.ontimeupdate = null;
-    }
-    if (posterEl) {
-      posterEl.style.display = 'block';
-      const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
-      const fallbackImg = isInsideFrontend ? `assets/reels/reel-${(activeReelIndex % 8) + 1}.jpg` : `frontend/assets/reels/reel-${(activeReelIndex % 8) + 1}.jpg`;
-      
-      posterEl.onerror = function() {
-        this.onerror = null;
-        this.src = fallbackImg;
-      };
-      const resolved = resolveMediaUrl(reel.img);
-      posterEl.src = resolved || fallbackImg;
+    // Set source
+    videoEl.src = videoSrc;
+    videoEl.currentTime = 0;
 
-      const stage = posterEl.parentElement;
-      if (stage) {
-        stage.classList.remove('reels-zoom-anim');
-        void stage.offsetWidth;
-        stage.classList.add('reels-zoom-anim');
-      }
+    const playPromise = videoEl.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn('[Reels] Autoplay blocked, forcing muted play:', err);
+        videoEl.muted = true;
+        videoEl.play().catch(() => {});
+      });
     }
 
-    const durationMs = 6500;
-    const startTime = Date.now();
-
-    reelProgressTimer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const pct = Math.min(100, (elapsed / durationMs) * 100);
-      if (progressFill) progressFill.style.width = `${pct}%`;
-      if (elapsed >= durationMs) {
-        clearInterval(reelProgressTimer);
-      }
-    }, 30);
-
-    reelStepTimer = setTimeout(() => {
+    videoEl.onended = () => {
       advanceToNextReel();
-    }, durationMs);
+    };
+
+    videoEl.ontimeupdate = () => {
+      if (videoEl.duration && progressFill) {
+        const pct = (videoEl.currentTime / videoEl.duration) * 100;
+        progressFill.style.width = `${pct}%`;
+      }
+    };
+
+    videoEl.onerror = () => {
+      console.warn('[Reels] Video playback error on', videoSrc);
+      reelStepTimer = setTimeout(() => {
+        advanceToNextReel();
+      }, 6000);
+    };
   }
 }
 
@@ -685,7 +662,20 @@ function setSpeed(multiplier) {
 
 function triggerManualSync() {
   syncSeconds = 3600;
-  showToast('🔄 Güncel veriler kontrol ediliyor...');
+  const syncIcon = document.getElementById('syncSpinIcon');
+  if (syncIcon) syncIcon.classList.add('spinning');
+  showToast('🔄 Senkronizasyon yapılıyor: Mağaza ve Reels güncelleniyor...');
+
+  // 1. Sağ sütundaki gerçek kaanelektronik.com mobil iframe'ini önbellek kırıcıyla yenile
+  const webStreamFrame = document.getElementById('webStreamFrame');
+  if (webStreamFrame) {
+    webStreamFrame.src = 'mobile-site.html?_t=' + Date.now();
+  }
+
+  // 2. Arka plan yerel sunucu aktifse /api/sync-now tetikle
+  fetch('/api/sync-now').catch(() => {});
+
+  // 3. Güncel verileri çek ve ekranı tazele
   fetchFeedData(false);
 }
 
@@ -774,6 +764,12 @@ window.addEventListener('DOMContentLoaded', () => {
   // Orta Kolon: Reels oynatıcı başlasın
   initReelsPlayer();
 
-  // Arka planda güncel verileri çek
+  // Sağ Kolon: Mağaza iframe'i taze zaman damgasıyla başlasın
+  const webStreamFrame = document.getElementById('webStreamFrame');
+  if (webStreamFrame) {
+    webStreamFrame.src = 'mobile-site.html?_t=' + Date.now();
+  }
+
+  // Sabah açılışında veya sayfa yenilenmesinde arka planda en güncel verileri çek ve senkronize et
   fetchFeedData(true);
 });

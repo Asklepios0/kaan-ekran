@@ -323,6 +323,179 @@ def scrape_instagram_reels(page, username):
         print(f"[IGScraper] Reels scrape failed for @{username}: {e}")
         return []
 
+def update_mobile_site_snapshot():
+    """Downloads live mobile view of kaanelektronik.com and saves to frontend/mobile-site.html."""
+    target_file = os.path.join(BASE_DIR, "frontend", "mobile-site.html")
+    url = "https://kaanelektronik.com/"
+    print(f"[SiteStream] Refreshing mobile snapshot from {url}...")
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) "
+                    "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1"
+                ),
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "tr-TR,tr;q=0.9"
+            }
+        )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+
+        base_tag = '<base href="https://kaanelektronik.com/">'
+        injected_css = """
+        <style>
+        #cookie-law-info-bar, .cookie-banner, .whatsapp-btn, .popmake, .modal,
+        .ins-preview-wrapper, #tidio-chat, #wp-live-chat, .cookie-consent,
+        [class*="cookie"], [class*="popup"], .joinchat, .wh-widget-send-button,
+        #gtranslate_wrapper, .elementor-location-popup, div[data-elementor-type="popup"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        ::-webkit-scrollbar { width: 0px !important; height: 0px !important; display: none !important; }
+        html, body {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            overflow-x: hidden !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            scroll-behavior: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #0f172a !important;
+        }
+        img { max-width: 100% !important; height: auto !important; }
+        </style>
+        """
+        injected_script = """
+        <script>
+        (function() {
+            document.addEventListener('click', function(e) {
+                var a = e.target.closest('a');
+                if (a && a.href && !a.href.startsWith('javascript:')) a.target = '_blank';
+            }, true);
+            var scrollSpeed = 0.85;
+            var isScrolling = true;
+            var scrollInterval = setInterval(function() {
+                if (!isScrolling) return;
+                window.scrollBy({ top: scrollSpeed, behavior: 'auto' });
+                var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                if (window.pageYOffset >= maxScroll - 15) {
+                    isScrolling = false;
+                    setTimeout(function() {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setTimeout(function() { isScrolling = true; }, 3500);
+                    }, 2500);
+                }
+            }, 30);
+            ['mousedown', 'touchstart', 'wheel'].forEach(function(evt) {
+                window.addEventListener(evt, function() {
+                    isScrolling = false;
+                    clearTimeout(window._resumeTimeout);
+                    window._resumeTimeout = setTimeout(function() { isScrolling = true; }, 6000);
+                }, { passive: true });
+            });
+        })();
+        </script>
+        """
+        if "<head>" in html:
+            html = html.replace("<head>", f"<head>{base_tag}{injected_css}{injected_script}", 1)
+        else:
+            html = f"{base_tag}{injected_css}{injected_script}{html}"
+
+        with open(target_file, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"[SiteStream] Mobile offline snapshot updated ({len(html):,} bytes).")
+    except Exception as e:
+        print(f"[SiteStream] Error updating mobile site snapshot: {e}")
+
+def sync_instagram_reels_videos(page):
+    """Fetches 4 latest reels for kaanelektronikk and 4 for knmasterofficial, keeping exactly 8 videos."""
+    import yt_dlp
+    reels_dir = os.path.join(BASE_DIR, "frontend", "assets", "reels")
+    os.makedirs(reels_dir, exist_ok=True)
+    meta_path = os.path.join(reels_dir, "reels_meta.json")
+
+    existing_meta = []
+    if os.path.exists(meta_path):
+        try:
+            with open(meta_path, "r", encoding="utf-8") as f:
+                existing_meta = json.load(f)
+        except Exception:
+            existing_meta = []
+
+    accounts = [("kaanelektronikk", 4), ("knmasterofficial", 4)]
+    new_items = []
+    
+    for username, count in accounts:
+        url = f"https://www.instagram.com/{username}/reels/"
+        print(f"[IGReels] Fetching reels for @{username}...")
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=25000)
+            page.wait_for_timeout(3500)
+            page.keyboard.press("PageDown")
+            page.wait_for_timeout(2000)
+
+            links = page.locator("a[href*='/reel/']").all()
+            seen = set()
+            account_reels = []
+            for a in links:
+                href = a.get_attribute("href")
+                if href and "/reel/" in href:
+                    clean_id = href.split("/reel/")[1].strip("/")
+                    full_url = f"https://www.instagram.com/reel/{clean_id}/"
+                    if full_url not in seen:
+                        seen.add(full_url)
+                        account_reels.append((username, full_url, clean_id))
+                        if len(account_reels) >= count:
+                            break
+            print(f"[IGReels] Found {len(account_reels)} reels for @{username}")
+            new_items.extend(account_reels)
+        except Exception as e:
+            print(f"[IGReels] Could not fetch @{username} reels: {e}")
+
+    if len(new_items) < 8 and existing_meta:
+        print("[IGReels] Using cached reels list due to network / rate limit.")
+        return [m for m in existing_meta if m.get("downloaded")]
+
+    ydl_opts = {'format': 'mp4/bestvideo+bestaudio/best', 'quiet': True, 'no_warnings': True}
+    updated_meta = []
+
+    for idx, (username, reel_url, clean_id) in enumerate(new_items[:8], start=1):
+        target_video = os.path.join(reels_dir, f"reel-{idx}.mp4")
+        caption = ""
+        downloaded = False
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(reel_url, download=False)
+                caption = info.get("description") or info.get("title") or ""
+                direct_url = info.get("url")
+                if direct_url and direct_url.startswith("http"):
+                    req = urllib.request.Request(direct_url, headers={"User-Agent": "Mozilla/5.0"})
+                    with urllib.request.urlopen(req, timeout=30) as resp, open(target_video, "wb") as f:
+                        f.write(resp.read())
+                    downloaded = True
+        except Exception as e:
+            print(f"[IGReels] Download error for {reel_url}: {e}")
+
+        updated_meta.append({
+            "index": idx,
+            "username": username,
+            "url": reel_url,
+            "clean_id": clean_id,
+            "caption": caption.strip(),
+            "video_file": f"assets/reels/reel-{idx}.mp4",
+            "downloaded": downloaded or os.path.exists(target_video)
+        })
+
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(updated_meta, f, ensure_ascii=False, indent=2)
+
+    return updated_meta
+
 def run_scraper():
     """Main scraping orchestration function."""
     print(f"[Scraper] Starting sync at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}...")
@@ -375,16 +548,34 @@ def run_scraper():
             except Exception as e:
                 print(f"[Scraper] Instagram scraper failed (keeping cached posts): {e}")
 
-            # 3. Instagram Reels
+            # 3. Instagram Reels Videos & Sliding Window
             try:
-                reels_kaan = scrape_instagram_reels(page, "kaanelektronikk")
-                reels_kn = scrape_instagram_reels(page, "knmasterofficial")
-                new_reels = reels_kaan + reels_kn
-                if new_reels:
-                    current_data["reels"] = new_reels
-                    print(f"[Scraper] Updated {len(new_reels)} Instagram reels.")
+                synced_reels = sync_instagram_reels_videos(page)
+                if synced_reels:
+                    tags_map = {1: "Atölye & Montaj", 2: "İnterkom Serisi", 3: "Güvenlik & Takip", 4: "Kamera Aparatları", 5: "Aparat Montajı", 6: "Elcik Koruma", 7: "KnMaster Pro", 8: "Festival & Hediye"}
+                    formatted = []
+                    for item in synced_reels:
+                        idx = item["index"]
+                        formatted.append({
+                            "id": f"reel-{idx}",
+                            "title": item["caption"] or "KnMaster & Kaan Elektronik paylaşımı",
+                            "tag": tags_map.get(idx, "Reels"),
+                            "author": f"@{item['username']}",
+                            "img": f"assets/reels/reel-{idx}.jpg",
+                            "videoUrl": f"assets/reels/reel-{idx}.mp4",
+                            "instagramUrl": item["url"],
+                            "isNew": (idx in [1, 5])
+                        })
+                    current_data["reels"] = formatted
+                    print(f"[Scraper] Updated 8 reels with real video files.")
             except Exception as e:
-                print(f"[Scraper] Instagram reels scraper failed (keeping cached reels): {e}")
+                print(f"[Scraper] Reels video sync error: {e}")
+
+            # 4. Mobile website snapshot update
+            try:
+                update_mobile_site_snapshot()
+            except Exception as e:
+                print(f"[Scraper] Mobile snapshot error: {e}")
 
             browser.close()
 
