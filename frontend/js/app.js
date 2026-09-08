@@ -185,6 +185,9 @@ function initCountdown() {
     if (syncSeconds <= 0) {
       syncSeconds = 3600;
       fetchFeedData(true);
+      if (typeof KioskSystemOptimizer !== 'undefined') {
+        KioskSystemOptimizer.runHourlyOptimization(false);
+      }
     }
     if (cdEl) {
       const m = String(Math.floor(syncSeconds / 60)).padStart(2, '0');
@@ -504,19 +507,13 @@ function playPost(idx) {
 
   const imgEl = document.getElementById('activePostImg');
   const stageEl = document.getElementById('postsStage');
-  const authorBadge = document.getElementById('postAuthorBadge');
   const accountMeta = document.getElementById('postAccountMeta');
   const counterMeta = document.getElementById('postCounterMeta');
-  const captionText = document.getElementById('postCaptionText');
-  const tagBadge = document.getElementById('postTagBadge');
   const progressFill = document.getElementById('postProgressBar');
 
   const author = post.author || '@knmasterofficial';
-  if (authorBadge) authorBadge.innerText = author;
   if (accountMeta) accountMeta.innerText = author;
   if (counterMeta) counterMeta.innerText = `${activePostIndex + 1}/${list.length}`;
-  if (captionText) captionText.innerText = post.text || post.title || 'KnMaster Motosiklet Ekipmanları & Aksesuarları';
-  if (tagBadge) tagBadge.innerText = post.tag || 'Gönderi';
 
   if (postProgressInterval) clearInterval(postProgressInterval);
   if (postStepTimer) clearTimeout(postStepTimer);
@@ -538,6 +535,14 @@ function playPost(idx) {
     imgEl.onerror = () => {
       imgEl.style.opacity = '1';
     };
+  }
+
+  // Preload next image for instant transition
+  const nextIdx = (activePostIndex + 1) % list.length;
+  const nextPost = list[nextIdx];
+  if (nextPost && (nextPost.img || nextPost.imageUrl)) {
+    const nextImg = new Image();
+    nextImg.src = resolveMediaUrl(nextPost.img || nextPost.imageUrl);
   }
 
   // Smooth progress bar animation
@@ -621,7 +626,153 @@ document.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// 13. OTOMATİK TAM EKRAN (VARSAYILAN AKTİF)
+// 12.B ADAPTIVE SCREEN ENGINE (CİHAZ VE EKRAN ANALİZ SİSTEMİ)
+// ==========================================
+const AdaptiveScreenEngine = {
+  profile: 'standard',
+
+  analyzeAndAdapt() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const ratio = width / height;
+    const root = document.documentElement;
+
+    // Sütun Oranları Stratejisi:
+    // Sol Kolon (Yorumlar): ~28-30%
+    // Orta Kolon (Reels): ~35-36%
+    // Sağ Kolon (Instagram Gönderileri): ~35-36%
+    if (width >= 2400) {
+      // 4K Ultra HD Showroom TV
+      this.profile = '4k-tv';
+      root.style.setProperty('--col-left-width', '0.90fr');
+      root.style.setProperty('--col-mid-width', '1.16fr');
+      root.style.setProperty('--col-right-width', '1.16fr');
+      root.style.setProperty('--header-height', '84px');
+      root.style.setProperty('--grid-gap', '24px');
+      root.style.setProperty('--card-padding', '22px');
+      root.style.setProperty('--card-font-scale', '1.08');
+    } else if (width >= 1600 && height >= 850) {
+      // Full HD 1080p Smart TV / Kiosk Display
+      this.profile = 'fhd-tv';
+      root.style.setProperty('--col-left-width', '0.92fr');
+      root.style.setProperty('--col-mid-width', '1.15fr');
+      root.style.setProperty('--col-right-width', '1.15fr');
+      root.style.setProperty('--header-height', '72px');
+      root.style.setProperty('--grid-gap', '20px');
+      root.style.setProperty('--card-padding', '18px');
+      root.style.setProperty('--card-font-scale', '1.0');
+    } else if (width >= 1150) {
+      // Laptop / Pencere Modu (1366x768 / 1440x900)
+      this.profile = 'laptop';
+      root.style.setProperty('--col-left-width', '0.88fr');
+      root.style.setProperty('--col-mid-width', '1.18fr');
+      root.style.setProperty('--col-right-width', '1.18fr');
+      root.style.setProperty('--header-height', '66px');
+      root.style.setProperty('--grid-gap', '14px');
+      root.style.setProperty('--card-padding', '14px');
+      root.style.setProperty('--card-font-scale', '0.92');
+    } else {
+      // Tablet / Kompakt Ekran (< 1150px)
+      this.profile = 'compact';
+      root.style.setProperty('--col-left-width', '1fr');
+      root.style.setProperty('--col-mid-width', '1.12fr');
+      root.style.setProperty('--col-right-width', '1.12fr');
+      root.style.setProperty('--header-height', '62px');
+      root.style.setProperty('--grid-gap', '12px');
+      root.style.setProperty('--card-padding', '12px');
+      root.style.setProperty('--card-font-scale', '0.86');
+    }
+
+    const headerH = parseInt(root.style.getPropertyValue('--header-height')) || 70;
+    root.style.setProperty('--grid-padding-top', `${headerH + 20}px`);
+
+    document.documentElement.setAttribute('data-device-profile', this.profile);
+    document.body.setAttribute('data-device-profile', this.profile);
+    console.log(`[ScreenEngine] Cihaz profili analiz edildi ve uyarlandı: ${this.profile} (${width}x${height}, oran: ${ratio.toFixed(2)})`);
+  },
+
+  init() {
+    this.analyzeAndAdapt();
+    window.addEventListener('resize', () => this.analyzeAndAdapt());
+    document.addEventListener('fullscreenchange', () => this.analyzeAndAdapt());
+    document.addEventListener('webkitfullscreenchange', () => this.analyzeAndAdapt());
+  }
+};
+window.AdaptiveScreenEngine = AdaptiveScreenEngine;
+
+// ==========================================
+// 12.C HOURLY SYSTEM OPTIMIZER & SELF-HEALING ENGINE (SAAT BAŞI OTOMATİK OPTİMİZASYON VE ANALİZ)
+// ==========================================
+const KioskSystemOptimizer = {
+  lastRun: null,
+  healthMetrics: {
+    memoryCleaned: true,
+    videoHealthy: true,
+    postsPreloaded: 0,
+    scrollerSynchronized: true,
+    screenAdapted: true
+  },
+
+  async runHourlyOptimization(isManual = false) {
+    console.log(`[Optimizer] Kiosk sistem analizi ve optimizasyonu başlatıldı (manual=${isManual})...`);
+
+    // 1. Ekran ve Geometri Analizi
+    AdaptiveScreenEngine.analyzeAndAdapt();
+    this.healthMetrics.screenAdapted = true;
+
+    // 2. Video & Reels Sağlık Kontrolü (Donma veya durma varsa canlandır)
+    const video = document.getElementById('activeReelVideo');
+    if (video) {
+      if (video.error || (video.paused && !isPaused && video.style.display !== 'none')) {
+        console.warn('[Optimizer] Reels videosunda duraklama algılandı, yeniden başlatılıyor...');
+        playReel(activeReelIndex);
+      }
+      this.healthMetrics.videoHealthy = !video.error;
+    }
+
+    // 3. Instagram Gönderi Görselleri Önbellekleme (Sıradaki 3 görseli önceden yükle)
+    const posts = getOrderedPosts();
+    let preloaded = 0;
+    if (posts && posts.length > 0) {
+      for (let i = 1; i <= 3; i++) {
+        const nextIdx = (activePostIndex + i) % posts.length;
+        const post = posts[nextIdx];
+        if (post && (post.img || post.imageUrl)) {
+          const img = new Image();
+          img.src = resolveMediaUrl(post.img || post.imageUrl);
+          preloaded++;
+        }
+      }
+    }
+    this.healthMetrics.postsPreloaded = preloaded;
+
+    // 4. Virtual Scroller Runner Kontrolü & Bellek Temizliği
+    if (scrollers.left) {
+      scrollers.left.updateDataset(state.reviews);
+    }
+    this.healthMetrics.scrollerSynchronized = true;
+
+    // 5. DOM & Bellek Temizliği
+    const modal = document.getElementById('cardDetailModal');
+    if (modal && modal.style.display === 'none') {
+      const content = document.getElementById('detailContent');
+      if (content) content.innerHTML = '';
+    }
+    this.healthMetrics.memoryCleaned = true;
+
+    this.lastRun = new Date();
+    console.log('[Optimizer] Sistem kontrolü başarıyla tamamlandı:', this.healthMetrics);
+
+    if (isManual) {
+      showToast('⚡ Sistem Analizi ve Saatlik Optimizasyon Tamamlandı');
+    }
+    return this.healthMetrics;
+  }
+};
+window.KioskSystemOptimizer = KioskSystemOptimizer;
+
+// ==========================================
+// 13. ÇİFT YÖNLÜ TAM EKRAN (OTOMATİK & KİOSK ÇAĞRI)
 // ==========================================
 function autoRequestFullscreen() {
   const doc = document;
@@ -638,7 +789,7 @@ function autoRequestFullscreen() {
 function toggleFullscreen() {
   const doc = document;
   const isFull = !!(doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement);
-  
+
   if (!isFull) {
     autoRequestFullscreen();
   } else {
@@ -661,7 +812,22 @@ window.addEventListener('load', () => {
 });
 
 function updateFullscreenStatus() {
-  // Durum takibi
+  const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+  const label = document.getElementById('fsLabel');
+  const icon = document.getElementById('fsIcon');
+  if (label) label.innerText = isFull ? 'Tam Ekrandan Çık' : 'Tam Ekran';
+  if (icon) icon.innerText = isFull ? '✖️' : '⛶';
+
+  const capsule = document.getElementById('fullscreenPromptCapsule');
+  if (capsule) {
+    if (isFull) {
+      capsule.classList.add('hidden');
+    } else {
+      capsule.classList.remove('hidden');
+    }
+  }
+
+  AdaptiveScreenEngine.analyzeAndAdapt();
 }
 
 document.addEventListener('fullscreenchange', updateFullscreenStatus);
@@ -727,13 +893,16 @@ function triggerManualSync() {
   syncSeconds = 3600;
   const syncIcon = document.getElementById('syncSpinIcon');
   if (syncIcon) syncIcon.classList.add('spinning');
-  showToast('🔄 Senkronizasyon yapılıyor: Yorumlar, Reels ve Gönderiler güncelleniyor...');
+  showToast('🔄 Senkronizasyon ve Sistem Analizi Yapılıyor...');
 
   // Arka plan yerel sunucu aktifse /api/sync-now tetikle
   fetch('/api/sync-now').catch(() => {});
 
   // Güncel verileri çek ve ekranı tazele
   fetchFeedData(false);
+
+  // Kapsamlı sistem analizini ve optimizasyonunu çalıştır
+  KioskSystemOptimizer.runHourlyOptimization(true);
 }
 
 function resetColumn(colId) {
@@ -810,13 +979,16 @@ function initKeyboardShortcuts() {
 // 17. BAŞLANGIÇ
 // ==========================================
 window.addEventListener('DOMContentLoaded', () => {
+  // 1. Ekran Analiz Motorunu Başlat
+  AdaptiveScreenEngine.init();
+
   initClock();
   initWeather();
   initTheme();
   initCountdown();
   initBurnInProtection();
   initKeyboardShortcuts();
-  
+
   // Sol Kolon: 5 Yıldızlı Yorumlar anında başlasın
   if (!scrollers.left && state.reviews.length > 0) {
     initScrollers();
@@ -825,8 +997,11 @@ window.addEventListener('DOMContentLoaded', () => {
   // Orta Kolon: Reels oynatıcı başlasın (Sesi Kapalı)
   initReelsPlayer();
 
-  // Sağ Kolon: 20 Instagram Gönderi Vitrini başlasın
+  // Sağ Kolon: 20 Instagram Gönderisi Vitrini başlasın (Temiz Görünüm)
   initPostsPlayer();
+
+  // İlk sistem optimizasyon ve kontrolünü çalıştır
+  KioskSystemOptimizer.runHourlyOptimization(false);
 
   // Otomatik tam ekran denemesi
   autoRequestFullscreen();
