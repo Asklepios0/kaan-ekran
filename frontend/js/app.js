@@ -20,11 +20,14 @@ function resolveMediaUrl(url) {
   if (!url) return '';
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
   const clean = url.replace(/^\/+/, '');
-  if (clean.startsWith('cache/')) {
-    const isSubdir = window.location.pathname.includes('/frontend');
-    return (isSubdir ? '../' : './') + clean;
+  const isInsideFrontend = window.location.pathname.includes('/frontend');
+  if (clean.startsWith('assets/')) {
+    return isInsideFrontend ? clean : 'frontend/' + clean;
   }
-  return url;
+  if (clean.startsWith('cache/')) {
+    return (isInsideFrontend ? '../' : './') + clean;
+  }
+  return clean;
 }
 
 let state = {
@@ -438,7 +441,19 @@ function playReel(idx) {
     }
     if (posterEl) {
       posterEl.style.display = 'block';
-      posterEl.src = resolveMediaUrl(reel.img) || resolveMediaUrl('/cache/media/010a754746cf815ef38b58d15f33b927.jpg');
+      const defaultImg = 'assets/reels/reel-1.jpg';
+      posterEl.onerror = function() {
+        this.onerror = null;
+        this.src = defaultImg;
+      };
+      posterEl.src = resolveMediaUrl(reel.img) || defaultImg;
+
+      const stage = posterEl.parentElement;
+      if (stage) {
+        stage.classList.remove('reels-zoom-anim');
+        void stage.offsetWidth;
+        stage.classList.add('reels-zoom-anim');
+      }
     }
 
     const durationMs = 8500;

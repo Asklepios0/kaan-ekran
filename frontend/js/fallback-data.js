@@ -7,7 +7,7 @@ const FALLBACK_DATA = {
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-09-08T00:16:48.407381",
+  "lastSync": "2026-09-08T00:31:49.906181",
   "reviews": [
     {
       "id": "gmap-b7fce0d765",
@@ -358,7 +358,7 @@ const FALLBACK_DATA = {
       "title": "KnMaster Titreşim Sönümleyicili Telefon Tutucu Testi! 🏍️📱",
       "tag": "Ürün İnceleme",
       "author": "@kaanelektronikk",
-      "img": "/cache/media/010a754746cf815ef38b58d15f33b927.jpg",
+      "img": "assets/reels/reel-1.jpg",
       "videoUrl": "",
       "isNew": true
     },
@@ -367,7 +367,7 @@ const FALLBACK_DATA = {
       "title": "Hasanpaşa Atölye: İçi Kulaklık ve İntercom Montaj Detayları",
       "tag": "Atölye Montaj",
       "author": "@kaanelektronikk",
-      "img": "/cache/media/016397170a47912bf220c4685a2326c9.jpg",
+      "img": "assets/reels/reel-2.jpg",
       "videoUrl": "",
       "isNew": true
     },
@@ -376,7 +376,7 @@ const FALLBACK_DATA = {
       "title": "Yağmurda Su Geçirmezlik Testi: Gidon Çantası ve Koruma Kılıfı",
       "tag": "Dayanıklılık Testi",
       "author": "@knmasterofficial",
-      "img": "/cache/media/02c82f0bae1bbf9b483dda3e971a1ddd.jpg",
+      "img": "assets/reels/reel-3.jpg",
       "videoUrl": "",
       "isNew": false
     },
@@ -385,7 +385,7 @@ const FALLBACK_DATA = {
       "title": "Gece Sürüşü İçin Güçlendirilmiş LED Sis Farı Kurulumu",
       "tag": "Montaj Rehberi",
       "author": "@kaanelektronikk",
-      "img": "/cache/media/0809fe8b3b0b713955a6059564c212ce.jpg",
+      "img": "assets/reels/reel-4.jpg",
       "videoUrl": "",
       "isNew": false
     },
@@ -394,7 +394,7 @@ const FALLBACK_DATA = {
       "title": "Gidon Yükseltme ve Açılı Telefon Tutucu Aparatı",
       "tag": "Ürün Tanıtımı",
       "author": "@knmasterofficial",
-      "img": "/cache/media/0821f643975df9ba607d4351f380b58d.jpg",
+      "img": "assets/reels/reel-5.jpg",
       "videoUrl": "",
       "isNew": false
     },
@@ -403,7 +403,7 @@ const FALLBACK_DATA = {
       "title": "KN2300PRO Çoklu İntercom Eşleştirme Nasıl Yapılır?",
       "tag": "Teknik Destek",
       "author": "@knmasterofficial",
-      "img": "/cache/media/09e4dd040095332bd463c37736863b46.jpg",
+      "img": "assets/reels/reel-6.jpg",
       "videoUrl": "",
       "isNew": false
     },
@@ -412,137 +412,137 @@ const FALLBACK_DATA = {
       "title": "CNC Alüminyum Ayna Uzatma ve Titreşim Önleyici Adaptör",
       "tag": "Aksesuar",
       "author": "@kaanelektronikk",
-      "img": "/cache/media/0ee03eff9d6cd2f6c4ae90e585956a71.jpg",
+      "img": "assets/reels/reel-7.jpg",
       "videoUrl": "",
       "isNew": false
     }
   ],
   "posts": [
     {
-      "id": "ig-kaanelektronikk-0f2fd642",
+      "id": "ig-kaanelektronikk-4f9e97dc",
       "author": "@kaanelektronikk",
-      "text": "Kaan Elektronik Hasanpaşa Showroom - Birebir Kask İçi Montaj ve Test İmkanı",
-      "img": "/cache/media/0f2fd642435786075becda2cb7dbe828.jpg",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "assets/reels/reel-1.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-e342a8be",
+      "id": "ig-kaanelektronikk-4fb641b9",
       "author": "@kaanelektronikk",
-      "text": "Kaan Elektronik Hasanpaşa Showroom - Birebir Kask İçi Montaj ve Test İmkanı",
-      "img": "/cache/media/e342a8be2e78692e17f2aab73e4474ef.jpg",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "assets/reels/reel-2.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-2658fe58",
+      "id": "ig-kaanelektronikk-cae79684",
       "author": "@kaanelektronikk",
-      "text": "Kaan Elektronik Hasanpaşa Showroom - Birebir Kask İçi Montaj ve Test İmkanı",
-      "img": "/cache/media/2658fe58148263d8846f7b7e2717ddb3.jpg",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "assets/reels/reel-3.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-83734734",
+      "id": "ig-kaanelektronikk-b14a009a",
       "author": "@kaanelektronikk",
-      "text": "KnMaster Uygun Fi̇yatli Taki̇p Ci̇hazi Kn Tag1 - Hasanpaşa Showroom",
-      "img": "/cache/media/83734734069f85cb8e91847db4aa4470.jpg",
+      "text": "KnMaster Uygun Fi̇yatli Taki̇p Ci̇hazi Kn Tag1",
+      "img": "assets/reels/reel-4.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-7090b3e2",
+      "id": "ig-kaanelektronikk-075325b5",
       "author": "@kaanelektronikk",
-      "text": "KnMaster Kamera  Kamera Aparatlari  Aparatlari Mc-200 Mc-200L - Hasanpaşa Showroom",
-      "img": "/cache/media/7090b3e22f4caafe8576d2bd0b678ea7.jpg",
+      "text": "KnMaster Kamera  Kamera Aparatlari  Aparatlari Mc-200 Mc-200L",
+      "img": "assets/reels/reel-5.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-0c45fb7d",
+      "id": "ig-kaanelektronikk-c01f03ec",
       "author": "@kaanelektronikk",
-      "text": "Kaan Elektronik Hasanpaşa Showroom - Birebir Kask İçi Montaj ve Test İmkanı",
-      "img": "/cache/media/0c45fb7dbebb496ccba76c780ccf1886.jpg",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "assets/reels/reel-6.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-2437c1aa",
+      "id": "ig-kaanelektronikk-0b3b80f6",
       "author": "@kaanelektronikk",
-      "text": "KnMaster Honda  Hondapcx  Pcx Uyumlu Aksesuarlari - Hasanpaşa Showroom",
-      "img": "/cache/media/2437c1aa0dbddadbead197258073f624.jpg",
+      "text": "KnMaster Honda  Hondapcx  Pcx Uyumlu Aksesuarlari",
+      "img": "assets/reels/reel-7.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-kaanelektronikk-f8dd186a",
+      "id": "ig-kaanelektronikk-7aaf8f32",
       "author": "@kaanelektronikk",
-      "text": "Kaan Elektronik Hasanpaşa Showroom - Birebir Kask İçi Montaj ve Test İmkanı",
-      "img": "/cache/media/f8dd186af8e0f0ac27f6cf4fed012b28.jpg",
+      "text": "Kaan Elektronik - Birebir Kask İçi Montaj ve Test İmkanı",
+      "img": "assets/reels/reel-1.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-knmasterofficial-6a7eaf16",
+      "id": "ig-knmasterofficial-42032ad5",
       "author": "@knmasterofficial",
       "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
-      "img": "/cache/media/6a7eaf161cb3340a48e026aad8e5e926.jpg",
+      "img": "assets/reels/reel-2.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-knmasterofficial-c6860383",
+      "id": "ig-knmasterofficial-a1e2259e",
       "author": "@knmasterofficial",
       "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
-      "img": "/cache/media/c6860383f4b6f8d927572fe514ab7e98.jpg",
+      "img": "assets/reels/reel-3.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-knmasterofficial-c2ba4679",
+      "id": "ig-knmasterofficial-81548fad",
       "author": "@knmasterofficial",
       "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
-      "img": "/cache/media/c2ba4679845e75d4af623ed878f70e6c.jpg",
+      "img": "assets/reels/reel-4.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-knmasterofficial-56e0a1e7",
+      "id": "ig-knmasterofficial-accd1172",
       "author": "@knmasterofficial",
-      "text": "KnMaster Uygun Fi̇yatli Taki̇p Ci̇hazi Kn Tag1 - Hasanpaşa Showroom",
-      "img": "/cache/media/56e0a1e7b74d8cb2b8e4fd904fe07f9e.jpg",
+      "text": "KnMaster Uygun Fi̇yatli Taki̇p Ci̇hazi Kn Tag1",
+      "img": "assets/reels/reel-5.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-knmasterofficial-86ce7c6a",
-      "author": "@knmasterofficial",
-      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
-      "img": "/cache/media/86ce7c6a1c8087c2da606fd0b7d3a073.jpg",
-      "videoUrl": "",
-      "isNew": false
-    },
-    {
-      "id": "ig-knmasterofficial-e3ac6444",
-      "author": "@knmasterofficial",
-      "text": "KnMaster Elc İk Elc İkkoruma Koruma - Hasanpaşa Showroom",
-      "img": "/cache/media/e3ac6444716936ef87b0ac5c4f420013.jpg",
-      "videoUrl": "",
-      "isNew": false
-    },
-    {
-      "id": "ig-knmasterofficial-f0e0bbf2",
+      "id": "ig-knmasterofficial-bad41a83",
       "author": "@knmasterofficial",
       "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
-      "img": "/cache/media/f0e0bbf2892979f9f1f7b7b45f5ea2e0.jpg",
+      "img": "assets/reels/reel-6.jpg",
       "videoUrl": "",
       "isNew": false
     },
     {
-      "id": "ig-knmasterofficial-21248618",
+      "id": "ig-knmasterofficial-1148c24a",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Elc İk Elc İkkoruma Koruma",
+      "img": "assets/reels/reel-7.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-a73fe74c",
       "author": "@knmasterofficial",
       "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
-      "img": "/cache/media/21248618983a74cb966eede8de506f0a.jpg",
+      "img": "assets/reels/reel-1.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "ig-knmasterofficial-df52f4ea",
+      "author": "@knmasterofficial",
+      "text": "KnMaster Premium Motosiklet Donanımları & Aksesuarları - 2 Yıl Türkiye Garantisi",
+      "img": "assets/reels/reel-2.jpg",
       "videoUrl": "",
       "isNew": false
     }
@@ -574,7 +574,4 @@ const FALLBACK_DATA = {
 
 if (typeof window !== 'undefined') {
   window.KIOSK_FALLBACK = FALLBACK_DATA;
-}
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = FALLBACK_DATA;
 }
