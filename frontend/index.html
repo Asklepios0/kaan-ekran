@@ -92,22 +92,13 @@
       </div>
 
       <!-- REELS PLAYER COMPONENT -->
-      <div class="reels-player-container" id="reelsPlayerContainer" onclick="advanceToNextReel()">
+      <div class="reels-player-container" id="reelsPlayerContainer" onclick="advanceToNextReel()" title="Sonraki Videoya Geçmek İçin Dokunun">
         <div class="reels-progress-wrap">
           <div class="reels-progress-fill" id="reelProgressBar"></div>
         </div>
         <div class="reels-stage">
-          <video id="activeReelVideo" playsinline autoplay muted preload="auto"></video>
+          <video id="activeReelVideo" playsinline autoplay preload="auto"></video>
           <img id="activeReelPoster" src="assets/reels/reel-1.jpg" alt="" style="display:none;" onerror="this.onerror=null; this.src='assets/reels/reel-1.jpg';">
-          <div class="reels-gradient-scrim"></div>
-        </div>
-        <div class="reels-card-overlay">
-          <div class="reels-author-badge-row">
-            <span class="reels-author-pill" id="reelAuthorBadge">@kaanelektronikk</span>
-            <span class="reels-verified-icon">✓ Doğrulandı</span>
-            <span class="reels-tag-pill" id="reelCategoryBadge">Ürün İnceleme</span>
-          </div>
-          <div class="reels-caption-box" id="reelCaptionText">KnMaster Titreşim Sönümleyicili Telefon Tutucu Testi! 🏍️📱</div>
         </div>
       </div>
     </section>
@@ -169,8 +160,8 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="js/fallback-data.js?v=2.5"></script>
-  <script src="js/virtual-scroller.js?v=2.5"></script>
-  <script src="js/app.js?v=2.5"></script>
+  <script src="js/fallback-data.js?v=2.6"></script>
+  <script src="js/virtual-scroller.js?v=2.6"></script>
+  <script src="js/app.js?v=2.6"></script>
 </body>
 </html>

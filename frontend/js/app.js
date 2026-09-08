@@ -8,10 +8,20 @@
  * - Çift yönlü tam ekran desteği ve Apple tarzı kontrol merkezi
  */
 
-window.isKioskMuted = true;
+window.isKioskMuted = false;
 let isPaused = false;
 let currentSpeedMultiplier = 1.0;
 let toastTimeout = null;
+
+// Tarayıcı autoplay politikası gerektirirse ilk tıklama veya tam ekran butonunda sesi anında aç
+const enableAudioOnInteraction = () => {
+  window.isKioskMuted = false;
+  const vid = document.getElementById('activeReelVideo');
+  if (vid) vid.muted = false;
+};
+['click', 'touchstart', 'keydown'].forEach(evt => {
+  document.addEventListener(evt, enableAudioOnInteraction, { once: true, passive: true });
+});
 
 const fallbackData = (typeof window !== 'undefined' && window.KIOSK_FALLBACK) ? window.KIOSK_FALLBACK : {};
 

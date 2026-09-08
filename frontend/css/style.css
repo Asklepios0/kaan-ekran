@@ -516,7 +516,7 @@ header {
    ========================================== */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr minmax(280px, calc((100vh - 165px) * (9 / 16))) 1fr;
   gap: 20px;
   height: 100vh;
   padding: 92px 20px 20px 20px;
