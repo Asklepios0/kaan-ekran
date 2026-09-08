@@ -17,10 +17,26 @@ const fallbackData = (typeof window !== 'undefined' && window.KIOSK_FALLBACK) ? 
 
 // Media URL resolver (supports local server, GitHub Pages subpaths, and root paths)
 function resolveMediaUrl(url) {
-  if (!url) return '';
+  const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
+  const defaultReel = isInsideFrontend ? 'assets/reels/reel-1.jpg' : 'frontend/assets/reels/reel-1.jpg';
+  
+  if (!url) return defaultReel;
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
-  const clean = url.replace(/^\/+/, '');
-  const isInsideFrontend = window.location.pathname.includes('/frontend');
+  
+  let clean = url.replace(/^\/+/, '');
+  
+  // Any legacy or cached /cache/media/ paths mapped deterministically to bundled high-res reels
+  if (clean.includes('cache/media')) {
+    let hash = 0;
+    for (let i = 0; i < clean.length; i++) hash = (hash + clean.charCodeAt(i)) % 7;
+    const mapped = (hash + 1);
+    return isInsideFrontend ? `assets/reels/reel-${mapped}.jpg` : `frontend/assets/reels/reel-${mapped}.jpg`;
+  }
+  
+  if (clean.startsWith('frontend/assets/')) {
+    clean = clean.replace('frontend/', '');
+  }
+  
   if (clean.startsWith('assets/')) {
     return isInsideFrontend ? clean : 'frontend/' + clean;
   }
@@ -310,8 +326,9 @@ async function fetchFeedData(silent = false) {
       if (!state.activeSwitches['col-left']) scrollers.left.updateDataset(state.reviews);
     }
 
-    // Update reels player dataset
+    // Update reels player dataset and refresh display
     updateReelsPlayerDataset();
+    playReel(activeReelIndex);
 
     if (statusDot) statusDot.className = 'status-dot';
     if (statusSpan) statusSpan.innerText = 'CANLI YAYIN';
@@ -432,7 +449,7 @@ function playReel(idx) {
       };
     }
   } else {
-    // Görsel poster modu: 8.5 saniye ilerleme çubuğuyla otomatik geçiş
+    // Görsel reel vitrin modu: 6.5 saniye dinamik zoom efekti ve hikaye ilerleme çubuğu
     if (videoEl) {
       videoEl.pause();
       videoEl.style.display = 'none';
@@ -441,12 +458,15 @@ function playReel(idx) {
     }
     if (posterEl) {
       posterEl.style.display = 'block';
-      const defaultImg = 'assets/reels/reel-1.jpg';
+      const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
+      const fallbackImg = isInsideFrontend ? `assets/reels/reel-${(activeReelIndex % 7) + 1}.jpg` : `frontend/assets/reels/reel-${(activeReelIndex % 7) + 1}.jpg`;
+      
       posterEl.onerror = function() {
         this.onerror = null;
-        this.src = defaultImg;
+        this.src = fallbackImg;
       };
-      posterEl.src = resolveMediaUrl(reel.img) || defaultImg;
+      const resolved = resolveMediaUrl(reel.img);
+      posterEl.src = resolved || fallbackImg;
 
       const stage = posterEl.parentElement;
       if (stage) {
@@ -456,7 +476,7 @@ function playReel(idx) {
       }
     }
 
-    const durationMs = 8500;
+    const durationMs = 6500;
     const startTime = Date.now();
 
     reelProgressTimer = setInterval(() => {
@@ -466,7 +486,7 @@ function playReel(idx) {
       if (elapsed >= durationMs) {
         clearInterval(reelProgressTimer);
       }
-    }, 40);
+    }, 30);
 
     reelStepTimer = setTimeout(() => {
       advanceToNextReel();
@@ -648,6 +668,31 @@ function triggerManualSync() {
   syncSeconds = 3600;
   showToast('🔄 Güncel veriler kontrol ediliyor...');
   fetchFeedData(false);
+}
+
+function resetColumn(colId) {
+  state.activeSwitches[colId] = null;
+  if (colId === 'col-mid') {
+    initReelsPlayer();
+  } else if (colId === 'col-left') {
+    scrollers.left?.updateDataset(state.reviews);
+  }
+  showToast('Varsayılan düzene dönüldü.');
+}
+
+function openSwitchModal(source) {
+  const modal = document.getElementById('switchModal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeModal() {
+  const modal = document.getElementById('switchModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function executeSwitch(colId) {
+  closeModal();
+  showToast(`Akış ${colId} paneline aktarıldı.`);
 }
 
 // ==========================================

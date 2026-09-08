@@ -72,7 +72,8 @@ class VirtualScroller {
     if (img) {
       img.onerror = () => {
         img.onerror = null;
-        img.src = '/cache/media/010a754746cf815ef38b58d15f33b927.jpg';
+        const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
+        img.src = isInsideFrontend ? 'assets/reels/reel-1.jpg' : 'frontend/assets/reels/reel-1.jpg';
       };
     }
 
