@@ -408,10 +408,19 @@
     },
     {
       "id": "reel-7",
-      "title": "CNC Alüminyum Ayna Uzatma ve Titreşim Önleyici Adaptör",
+      "title": "CNC Alüminyum Ayna Uzatma ve Titreşim Önleyici Adaptör İncelemesi",
       "tag": "Aksesuar",
       "author": "@kaanelektronikk",
       "img": "assets/reels/reel-7.jpg",
+      "videoUrl": "",
+      "isNew": false
+    },
+    {
+      "id": "reel-8",
+      "title": "KN6100 Pro Çoklu Grup İnterkom Bağlantısı & Mesh İletişim Rehberi",
+      "tag": "Teknik Destek",
+      "author": "@knmasterofficial",
+      "img": "assets/reels/reel-8.jpg",
       "videoUrl": "",
       "isNew": false
     }

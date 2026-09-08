@@ -3,11 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kaan Elektronik Online Mağaza Vitrini</title>
+  <title>Kaan Elektronik - Canlı Mağaza Vitrini</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #08090b;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --price-color: #22c55e;
+      --brand-red: #e31e24;
+      --brand-red-glow: rgba(227, 30, 36, 0.35);
+      --hero-bg: linear-gradient(135deg, rgba(227, 30, 36, 0.18) 0%, rgba(255, 255, 255, 0.02) 100%);
+      --hero-border: rgba(227, 30, 36, 0.3);
+    }
+
+    body.theme-light {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: rgba(15, 23, 42, 0.1);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --price-color: #16a34a;
+      --brand-red: #dc2626;
+      --brand-red-glow: rgba(220, 38, 38, 0.2);
+      --hero-bg: linear-gradient(135deg, rgba(220, 38, 38, 0.08) 0%, rgba(255, 255, 255, 0.9) 100%);
+      --hero-border: rgba(220, 38, 38, 0.25);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,8 +43,8 @@
     }
 
     body {
-      background: #08090b;
-      color: #f8fafc;
+      background: var(--bg);
+      color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
       overflow-y: scroll;
@@ -25,6 +53,7 @@
       user-select: none;
       -webkit-user-select: none;
       padding: 16px 14px 40px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     body::-webkit-scrollbar {
@@ -33,48 +62,48 @@
 
     /* Üst Başlık Banner */
     .store-hero {
-      background: linear-gradient(135deg, rgba(227, 30, 36, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
-      border: 1px solid rgba(227, 30, 36, 0.3);
-      border-radius: 20px;
-      padding: 20px 16px;
+      background: var(--hero-bg);
+      border: 1px solid var(--hero-border);
+      border-radius: 18px;
+      padding: 16px 14px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
 
     .store-url-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(227, 30, 36, 0.2);
-      border: 1px solid rgba(227, 30, 36, 0.5);
-      color: #ff4d52;
+      background: rgba(227, 30, 36, 0.15);
+      border: 1px solid rgba(227, 30, 36, 0.4);
+      color: #e31e24;
       font-size: 0.72rem;
       font-weight: 800;
       padding: 4px 12px;
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .store-title {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 900;
       letter-spacing: -0.5px;
-      color: #ffffff;
-      margin-bottom: 6px;
+      color: var(--text-main);
+      margin-bottom: 4px;
     }
 
     .store-title span {
-      color: #e31e24;
+      color: var(--brand-red);
     }
 
     .store-subtitle {
-      font-size: 0.82rem;
-      color: #94a3b8;
-      font-weight: 500;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
       line-height: 1.4;
     }
 
@@ -82,10 +111,10 @@
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-top: 14px;
-      font-size: 0.72rem;
-      color: #cbd5e1;
-      font-weight: 600;
+      margin-top: 12px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 700;
     }
 
     .trust-badges span {
@@ -98,309 +127,317 @@
     .products-grid {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     .product-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 18px;
-      padding: 16px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(12px);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px;
       text-decoration: none;
       color: inherit;
-      display: block;
-    }
-
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(227, 30, 36, 0.6), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
     }
 
     .product-card:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(227, 30, 36, 0.4);
       transform: translateY(-2px);
+      border-color: rgba(227, 30, 36, 0.4);
+      box-shadow: 0 8px 24px rgba(227, 30, 36, 0.15);
     }
 
-    .product-card:hover::before {
-      opacity: 1;
+    .product-main-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .product-thumb {
+      width: 76px;
+      height: 76px;
+      min-width: 76px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .product-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      justify-content: space-between;
+      gap: 8px;
     }
 
     .category-pill {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #94a3b8;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 3px 8px;
-      border-radius: 6px;
+      letter-spacing: 0.6px;
+      color: var(--text-dim);
     }
 
     .badge-deal {
-      background: #e31e24;
+      background: var(--brand-red);
       color: #ffffff;
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 999px;
-      letter-spacing: 0.5px;
-      animation: pulseGlow 2.5s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(227, 30, 36, 0.4); }
-      50% { box-shadow: 0 0 12px 2px rgba(227, 30, 36, 0.7); }
+      padding: 2px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.4px;
     }
 
     .product-name {
-      font-size: 1rem;
+      font-size: 0.88rem;
       font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 6px;
+      color: var(--text-main);
       line-height: 1.35;
-    }
-
-    .product-desc {
-      font-size: 0.78rem;
-      color: #94a3b8;
-      line-height: 1.45;
-      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .product-footer {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--card-border);
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 2px;
     }
 
     .product-price-box {
       display: flex;
-      flex-direction: column;
+      align-items: baseline;
+      gap: 6px;
     }
 
     .product-price-old {
-      font-size: 0.72rem;
-      color: #64748b;
+      font-size: 0.74rem;
+      color: var(--text-dim);
       text-decoration: line-through;
+      font-weight: 600;
     }
 
     .product-price {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 900;
-      color: #4ade80;
-      letter-spacing: -0.3px;
+      color: var(--price-color);
+      letter-spacing: -0.4px;
     }
 
     .btn-buy {
-      background: rgba(227, 30, 36, 0.16);
+      background: rgba(227, 30, 36, 0.12);
       border: 1px solid rgba(227, 30, 36, 0.4);
-      color: #ff6b6e;
-      padding: 6px 14px;
-      border-radius: 10px;
-      font-size: 0.75rem;
+      color: var(--brand-red);
+      font-size: 0.72rem;
       font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      padding: 5px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.4px;
     }
 
-    .btn-buy:hover {
-      background: #e31e24;
-      color: #ffffff;
-    }
-
-    /* Alt Bilgilendirme */
     .store-footer {
-      margin-top: 24px;
       text-align: center;
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .store-footer p {
-      font-size: 0.75rem;
-      color: #64748b;
+      margin-top: 24px;
+      font-size: 0.72rem;
+      color: var(--text-dim);
       line-height: 1.5;
     }
 
-    .qr-hint {
-      color: #e31e24;
-      font-weight: 700;
+    .live-indicator {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-right: 4px;
+      box-shadow: 0 0 8px #22c55e;
     }
   </style>
 </head>
-<body>
+<body class="theme-dark">
 
-  <!-- ÜST MAĞAZA TANITIM KARTI -->
+  <!-- ÜST MAĞAZA BAŞLIĞI -->
   <div class="store-hero">
-    <div class="store-url-badge">⚡ Canlı Online Mağaza</div>
-    <h1 class="store-title">KAAN <span>ELEKTRONİK</span></h1>
-    <p class="store-subtitle">KnMaster Motosiklet Donanımları & Aksesuarları Türkiye Resmi Distribütörü</p>
+    <div class="store-url-badge">
+      <span class="live-indicator"></span> kaanelektronik.com
+    </div>
+    <div class="store-title">Online <span>Mağaza</span></div>
+    <div class="store-subtitle">Motosiklet Aksesuar & İnterkom Sistemleri</div>
     <div class="trust-badges">
-      <span>🚚 Aynı Gün Kargo</span>
-      <span>🛡️ 2 Yıl Garanti</span>
-      <span>⭐ %100 Orijinal</span>
+      <span>✓ 2 Yıl Garanti</span>
+      <span>✓ Orijinal Ürün</span>
+      <span>✓ Hızlı Kargo</span>
     </div>
   </div>
 
-  <!-- ÖNE ÇIKAN SHOWROOM ÜRÜNLERİ -->
-  <div class="products-grid">
-
-    <!-- Ürün 1 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">İntercom Serisi</span>
-        <span class="badge-deal">Çok Satan</span>
-      </div>
-      <h2 class="product-name">KnMaster KN2300PRO Çoklu Kask İntercom</h2>
-      <p class="product-desc">Gelişmiş ENC aktif gürültü engelleme, 1000m menzil, 2000mAh batarya ile 30+ gün kesintisiz kullanım.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">3.890 TL</span>
-          <span class="product-price">3.490 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
-    <!-- Ürün 2 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">Telefon Tutucu</span>
-        <span class="badge-deal">Tavsiye</span>
-      </div>
-      <h2 class="product-name">Titreşim Sönümleyicili CNC Telefon Tutucu</h2>
-      <p class="product-desc">Özel silikon sönümleyici damper sayesinde telefon kameranızın OIS optik lensini titreşimden %100 korur.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">1.350 TL</span>
-          <span class="product-price">1.150 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
-    <!-- Ürün 3 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">Güvenlik & Takip</span>
-        <span class="badge-deal">Yeni Ürün</span>
-      </div>
-      <h2 class="product-name">Kn Tag1 Apple Bul Uyumlu Motosiklet Takip Cihazı</h2>
-      <p class="product-desc">Aylık hat ücreti ve SIM kart gerekmez! Apple Find My ağı üzerinden anlık konum bildirimi ve 1 yıl pil ömrü.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">850 TL</span>
-          <span class="product-price">690 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
-    <!-- Ürün 4 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">İntercom Serisi</span>
-        <span class="badge-deal">Fırsat</span>
-      </div>
-      <h2 class="product-name">KnMaster KN2100 Bluetooth Kask İntercom</h2>
-      <p class="product-desc">Kristal netliğinde ses, dahili FM radyo, telefon görüşmesi ve IP67 su geçirmezlik standardı.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">2.450 TL</span>
-          <span class="product-price">2.190 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
-    <!-- Ürün 5 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">Aydınlatma</span>
-        <span class="badge-deal">Popüler</span>
-      </div>
-      <h2 class="product-name">KnMaster Mercekli LED Sis Farı Seti</h2>
-      <p class="product-desc">Sarı sis ışığı ve beyaz projektör çift modlu optik lens. Gece sürüşlerinde maksimum görüş güvenliği.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">2.100 TL</span>
-          <span class="product-price">1.850 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
-    <!-- Ürün 6 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">Şarj & Enerji</span>
-        <span class="badge-deal">Gerekli</span>
-      </div>
-      <h2 class="product-name">Hızlı Şarj QC 3.0 & Type-C PD Motosiklet Şarj Kiti</h2>
-      <p class="product-desc">Akü koruma devreli, dijital voltmetre göstergeli ve su geçirmez silikon kapaklı montaj kiti.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">590 TL</span>
-          <span class="product-price">480 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
-    <!-- Ürün 7 -->
-    <a href="https://kaanelektronik.com" target="_blank" class="product-card">
-      <div class="product-header">
-        <span class="category-pill">Aksesuar & Yedek</span>
-        <span class="badge-deal">Orijinal</span>
-      </div>
-      <h2 class="product-name">KnMaster Kask İçi Hi-Fi HD Kulaklık & Mikrofon Seti</h2>
-      <p class="product-desc">Derin bas performansı sunan 40mm dinamik sürücüler, tüm kask modelleriyle tam uyumlu cırt bantlı montaj.</p>
-      <div class="product-footer">
-        <div class="product-price-box">
-          <span class="product-price-old">720 TL</span>
-          <span class="product-price">590 TL</span>
-        </div>
-        <span class="btn-buy">İncele ↗</span>
-      </div>
-    </a>
-
+  <!-- ÜRÜNLER LİSTESİ (CANLI API İLE DOLDURULUR) -->
+  <div class="products-grid" id="productsGrid">
+    <!-- Başlangıç / Yükleme Taslağı -->
+    <div style="text-align:center; padding: 24px; color: var(--text-dim); font-size: 0.8rem;">
+      Canlı mağaza ürünleri yükleniyor...
+    </div>
   </div>
 
   <!-- ALT BİLGİLENDİRME -->
   <div class="store-footer">
-    <p>Mağazamızdaki tüm ürünleri online sipariş vermek için akıllı telefonunuzla ekrandaki <span class="qr-hint">QR Kodu</span> tarayabilir veya <strong style="color:#ffffff;">kaanelektronik.com</strong> adresini ziyaret edebilirsiniz.</p>
-    <p style="margin-top:8px; font-size:0.68rem; color:#475569;">© Kaan Elektronik Hasanpaşa Showroom & Online Satış</p>
+    <p>Ürünleri detaylı incelemek ve online sipariş vermek için <strong>kaanelektronik.com</strong> adresini ziyaret edebilirsiniz.</p>
+    <p style="margin-top:6px; font-size:0.66rem; opacity:0.75;">© Kaan Elektronik Hasanpaşa Showroom & E-Ticaret</p>
   </div>
 
-  <!-- OTOMATİK DÜZENLİ KAYDIRMA (SMOOTH AUTO-SCROLLER) -->
+  <!-- CANLI WOOCOMMERCE ENTEGRASYONU VE OTOMATİK AKIŞ SCRIPTİ -->
   <script>
+    // 1. Ana sayfadan gelen tema mesajını dinle
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'THEME_CHANGE') {
+        document.body.className = e.data.mode === 'light' ? 'theme-light' : 'theme-dark';
+      }
+    });
+
+    // 2. Yedek Zengin Ürün Kataloğu (API kesintisine karşı)
+    const BACKUP_PRODUCTS = [
+      {
+        name: "KnMaster KN2100 Bluetooth Kask İntercom Seti",
+        category: "İntercom Serisi",
+        badge: "Fırsat",
+        oldPrice: "2.450 TL",
+        price: "2.190 TL",
+        url: "https://kaanelektronik.com",
+        img: "assets/reels/reel-2.jpg"
+      },
+      {
+        name: "KnMaster Titreşim Modüllü CNC Alüminyum Telefon Tutucu",
+        category: "Telefon Tutucu",
+        badge: "Tavsiye",
+        oldPrice: "1.350 TL",
+        price: "1.150 TL",
+        url: "https://kaanelektronik.com",
+        img: "assets/reels/reel-1.jpg"
+      },
+      {
+        name: "Kn Tag1 Apple Bul (Find My) Uyumlu Motosiklet Takip Cihazı",
+        category: "Güvenlik & Takip",
+        badge: "Yeni",
+        oldPrice: "850 TL",
+        price: "690 TL",
+        url: "https://kaanelektronik.com",
+        img: "assets/reels/reel-6.jpg"
+      },
+      {
+        name: "KnMaster KN2300 Pro Çoklu Grup İnterkom Sistemi",
+        category: "İntercom Serisi",
+        badge: "Popüler",
+        oldPrice: "3.890 TL",
+        price: "3.490 TL",
+        url: "https://kaanelektronik.com",
+        img: "assets/reels/reel-3.jpg"
+      },
+      {
+        name: "KNMASTER ED100 Pro A Röleli Sis Farı Kablo Tesisatı",
+        category: "Aydınlatma",
+        badge: "Orijinal",
+        oldPrice: "1.750 TL",
+        price: "1.499 TL",
+        url: "https://kaanelektronik.com",
+        img: "assets/reels/reel-4.jpg"
+      },
+      {
+        name: "Motosiklet Kauçuk Gidon Sarmalı Elcik Kılıfı Koruma Takımı",
+        category: "Aksesuar",
+        badge: "Trend",
+        oldPrice: "320 TL",
+        price: "239 TL",
+        url: "https://kaanelektronik.com",
+        img: "assets/reels/reel-5.jpg"
+      }
+    ];
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productsGrid');
+      if (!grid) return;
+
+      grid.innerHTML = items.map(p => `
+        <a href="${p.url}" target="_blank" class="product-card" title="${p.name}">
+          <div class="product-main-row">
+            <img src="${p.img}" alt="${p.name}" class="product-thumb" onerror="this.src='assets/reels/reel-1.jpg';">
+            <div class="product-info">
+              <div class="product-header">
+                <span class="category-pill">${p.category}</span>
+                ${p.badge ? `<span class="badge-deal">${p.badge}</span>` : ''}
+              </div>
+              <h2 class="product-name">${p.name}</h2>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="product-price-box">
+              ${p.oldPrice ? `<span class="product-price-old">${p.oldPrice}</span>` : ''}
+              <span class="product-price">${p.price}</span>
+            </div>
+            <span class="btn-buy">İncele ↗</span>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    // 3. WooCommerce Store API'den canlı veri çek
+    async function loadLiveProducts() {
+      try {
+        const res = await fetch('https://kaanelektronik.com/wp-json/wc/store/v1/products?per_page=16', { cache: 'no-store' });
+        if (!res.ok) throw new Error('API cevap vermedi');
+        const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) throw new Error('Ürün listesi boş');
+
+        const items = data.map(item => {
+          const prices = item.prices || {};
+          const regularPriceRaw = parseInt(prices.regular_price || 0, 10);
+          const currentPriceRaw = parseInt(prices.price || 0, 10);
+          const minorUnit = prices.currency_minor_unit || 2;
+          const factor = Math.pow(10, minorUnit);
+
+          const currentPrice = (currentPriceRaw / factor).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' TL';
+          const hasDiscount = regularPriceRaw > currentPriceRaw;
+          const oldPrice = hasDiscount ? (regularPriceRaw / factor).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' TL' : '';
+
+          const cat = (item.categories && item.categories.length > 0) ? item.categories[0].name : 'Aksesuar';
+          const img = (item.images && item.images.length > 0 && item.images[0].src) ? item.images[0].src : 'assets/reels/reel-1.jpg';
+
+          return {
+            name: item.name || 'KnMaster Ürün',
+            category: cat,
+            badge: hasDiscount ? 'İndirim' : 'Orijinal',
+            oldPrice: oldPrice,
+            price: currentPrice,
+            url: item.permalink || 'https://kaanelektronik.com',
+            img: img
+          };
+        });
+
+        renderProducts(items);
+      } catch (err) {
+        console.warn('[StreamStore] Canlı API bağlantısı sağlanamadı, yedek vitrin kullanılıyor:', err);
+        renderProducts(BACKUP_PRODUCTS);
+      }
+    }
+
+    loadLiveProducts();
+
+    // 4. Pürüzsüz otomatik kaydırma (Showroom TV için)
     (function() {
-      let scrollSpeed = 0.75;
+      let scrollSpeed = 0.8;
       let isScrolling = true;
       let pauseTimeout = null;
 
@@ -408,21 +445,20 @@
         if (!isScrolling) return;
         window.scrollBy({ top: scrollSpeed, behavior: 'auto' });
 
-        const isBottom = (window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 30);
+        const isBottom = (window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 25);
         if (isBottom) {
           isScrolling = false;
           setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             setTimeout(() => {
               isScrolling = true;
-            }, 3000);
-          }, 2000);
+            }, 2500);
+          }, 1800);
         }
       }
 
-      setInterval(tickScroll, 25);
+      setInterval(tickScroll, 30);
 
-      // Fare veya dokunma geldiğinde akışı duraklat
       window.addEventListener('mouseenter', () => { isScrolling = false; });
       window.addEventListener('mouseleave', () => { isScrolling = true; });
       window.addEventListener('touchstart', () => { isScrolling = false; });

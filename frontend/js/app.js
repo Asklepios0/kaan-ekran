@@ -28,7 +28,7 @@ function resolveMediaUrl(url) {
   // Any legacy or cached /cache/media/ paths mapped deterministically to bundled high-res reels
   if (clean.includes('cache/media')) {
     let hash = 0;
-    for (let i = 0; i < clean.length; i++) hash = (hash + clean.charCodeAt(i)) % 7;
+    for (let i = 0; i < clean.length; i++) hash = (hash + clean.charCodeAt(i)) % 8;
     const mapped = (hash + 1);
     return isInsideFrontend ? `assets/reels/reel-${mapped}.jpg` : `frontend/assets/reels/reel-${mapped}.jpg`;
   }
@@ -180,6 +180,18 @@ function applyTheme(mode) {
     body.classList.add('theme-dark');
     if (themeIcon) themeIcon.innerText = '🌙';
     if (themeLabel) themeLabel.innerText = 'Açık Temaya Geç';
+  }
+
+  const imgLogo = document.getElementById('imgLogo');
+  if (imgLogo) {
+    const isInsideFrontend = window.location.pathname.includes('/frontend');
+    const prefix = isInsideFrontend ? 'assets/' : 'frontend/assets/';
+    imgLogo.src = mode === 'light' ? prefix + 'logo-dark.svg' : prefix + 'logo.svg';
+  }
+
+  const frame = document.getElementById('webStreamFrame');
+  if (frame && frame.contentWindow) {
+    frame.contentWindow.postMessage({ type: 'THEME_CHANGE', mode: mode }, '*');
   }
 }
 
@@ -381,11 +393,18 @@ let reelStepTimer = null;
 function getOrderedReels() {
   const allReels = state.reels || [];
   if (allReels.length === 0) return [];
-  const kaan = allReels.filter(r => (r.author || '').toLowerCase().includes('kaanelektronik'));
-  const kn = allReels.filter(r => (r.author || '').toLowerCase().includes('knmaster'));
-  const others = allReels.filter(r => !(r.author || '').toLowerCase().includes('kaanelektronik') && !(r.author || '').toLowerCase().includes('knmaster'));
-  const list = [...kaan, ...kn, ...others];
-  return list.length > 0 ? list : allReels;
+  // 4 adet @kaanelektronikk ve 4 adet @knmasterofficial (Toplam 8 Reels)
+  const kaan = allReels.filter(r => (r.author || '').toLowerCase().includes('kaanelektronik')).slice(0, 4);
+  const kn = allReels.filter(r => (r.author || '').toLowerCase().includes('knmaster')).slice(0, 4);
+
+  // Sırayla 1 Kaan + 1 KnMaster şeklinde dönüşümlü 8'li liste
+  const list = [];
+  const maxLen = Math.max(kaan.length, kn.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (i < kaan.length) list.push(kaan[i]);
+    if (i < kn.length) list.push(kn[i]);
+  }
+  return list.length > 0 ? list : allReels.slice(0, 8);
 }
 
 function updateReelsPlayerDataset() {
@@ -459,7 +478,7 @@ function playReel(idx) {
     if (posterEl) {
       posterEl.style.display = 'block';
       const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
-      const fallbackImg = isInsideFrontend ? `assets/reels/reel-${(activeReelIndex % 7) + 1}.jpg` : `frontend/assets/reels/reel-${(activeReelIndex % 7) + 1}.jpg`;
+      const fallbackImg = isInsideFrontend ? `assets/reels/reel-${(activeReelIndex % 8) + 1}.jpg` : `frontend/assets/reels/reel-${(activeReelIndex % 8) + 1}.jpg`;
       
       posterEl.onerror = function() {
         this.onerror = null;

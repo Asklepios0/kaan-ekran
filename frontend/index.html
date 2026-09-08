@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <link rel="stylesheet" href="css/style.css?v=2.3">
 </head>
 <body class="theme-dark">
 
@@ -49,41 +49,10 @@
     </div>
 
     <div class="header-right">
-      <!-- APPLE-STYLE COLLAPSED CONTROL CENTER -->
-      <div class="control-center-wrapper">
-        <button class="action-btn control-btn" id="btnControlsToggle" title="Ayarlar & Kontroller" onclick="toggleControlsMenu(event)">
-          <span>⚙️</span>
-          <span class="action-label">Kontroller</span>
-        </button>
-
-        <div class="control-menu-popover" id="controlsMenu" style="display:none;" onclick="event.stopPropagation()">
-          <button class="menu-item" id="btnAudioToggle" onclick="toggleAudio()">
-            <span id="audioIcon">🔇</span>
-            <span id="audioLabel">Sesi Aç</span>
-          </button>
-          <button class="menu-item" id="btnPauseToggle" onclick="togglePause()">
-            <span id="pauseIcon">⏸️</span>
-            <span id="pauseLabel">Akışı Durdur</span>
-          </button>
-          <button class="menu-item" id="btnSpeedToggle" onclick="cycleSpeed()">
-            <span id="speedIcon">⚡</span>
-            <span id="speedLabel">1.0x Hız</span>
-          </button>
-          <button class="menu-item" id="btnThemeToggle" onclick="toggleTheme()">
-            <span id="themeIcon">🌓</span>
-            <span id="themeLabel">Temayı Değiştir</span>
-          </button>
-          <button class="menu-item" id="btnFullscreen" onclick="toggleFullscreen()">
-            <span id="fullscreenIcon">⛶</span>
-            <span id="fullscreenLabel">Tam Ekran</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="header-status">
-        <span class="status-dot"></span>
-        <span>CANLI YAYIN</span>
-      </div>
+      <button class="action-btn fullscreen-btn" id="btnFullscreen" title="Tam Ekran Yap (F11)" onclick="toggleFullscreen()">
+        <span id="fullscreenIcon">⛶</span>
+        <span id="fullscreenLabel">Tam Ekran</span>
+      </button>
 
       <div class="header-clock-group">
         <div class="header-date" id="liveDate">--</div>
@@ -101,7 +70,6 @@
         <div class="col-title-wrap">
           <span class="col-title-indicator"></span>
           <span class="col-title" id="title-left">Müşteri Yorumları</span>
-          <button class="btn-reset-col" id="reset-left" onclick="resetColumn('col-left')">Varsayılana Dön</button>
         </div>
         <div class="col-meta" id="meta-left">&#9733; 4.8 &bull; 6.153 Yorum</div>
       </div>
@@ -110,17 +78,16 @@
       </div>
     </section>
 
-    <!-- ORTA: AKILLI TV REELS OYNATICI -->
+    <!-- ORTA: AKILLI TV REELS OYNATICI (8'Lİ DÖNGÜ) -->
     <section class="column" id="col-mid">
       <div class="col-header">
         <div class="col-title-wrap">
           <span class="col-title-indicator"></span>
           <span class="col-title" id="title-mid">Reels Videoları</span>
-          <button class="btn-reset-col" id="reset-mid" onclick="resetColumn('col-mid')">Varsayılana Dön</button>
         </div>
         <div class="col-meta" id="meta-mid">
           <span id="reelAccountMeta" class="channel-tag-pill">@kaanelektronikk</span>
-          <span id="reelCounterMeta" style="margin-left:6px;">1/7</span>
+          <span id="reelCounterMeta" style="margin-left:6px;">1/8</span>
         </div>
       </div>
 
@@ -151,7 +118,6 @@
         <div class="col-title-wrap">
           <span class="col-title-indicator"></span>
           <span class="col-title" id="title-right">Online Mağaza</span>
-          <button class="btn-reset-col" id="reset-right" onclick="resetColumn('col-right')">Varsayılana Dön</button>
         </div>
         <div class="col-meta" id="meta-right">kaanelektronik.com</div>
       </div>
@@ -203,8 +169,8 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="js/fallback-data.js?v=2.2"></script>
-  <script src="js/virtual-scroller.js?v=2.2"></script>
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/fallback-data.js?v=2.3"></script>
+  <script src="js/virtual-scroller.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
 </body>
 </html>
