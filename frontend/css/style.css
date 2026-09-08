@@ -38,17 +38,17 @@
   /* Apple Easing Curves */
   --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Adaptive Screen Engine Dynamic Properties */
-  --col-left-width: 0.95fr;
-  --col-mid-width: 1.14fr;
-  --col-right-width: 1.14fr;
-  --header-height: 70px;
+  /* Adaptive Screen Engine Dynamic Properties (9:16 Reels & 3:4 Posts) */
+  --header-height: 68px;
   --grid-gap: 20px;
-  --grid-padding-top: 92px;
+  --grid-padding-top: 86px;
   --grid-padding-side: 20px;
-  --grid-padding-bottom: 20px;
+  --grid-padding-bottom: 18px;
   --card-padding: 18px;
   --card-font-scale: 1.0;
+  --stage-height: calc(100vh - var(--grid-padding-top) - var(--grid-padding-bottom) - 44px);
+  --reels-col-width: calc(var(--stage-height) * 9 / 16);
+  --posts-col-width: calc(var(--stage-height) * 3 / 4);
 }
 
 /* ==========================================
@@ -430,12 +430,14 @@ header {
    ========================================== */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: var(--col-left-width, 0.95fr) var(--col-mid-width, 1.14fr) var(--col-right-width, 1.14fr);
+  grid-template-columns: minmax(280px, 1fr) var(--reels-col-width, calc((100vh - var(--grid-padding-top) - var(--grid-padding-bottom) - 44px) * 9 / 16)) var(--posts-col-width, calc((100vh - var(--grid-padding-top) - var(--grid-padding-bottom) - 44px) * 3 / 4));
   gap: var(--grid-gap, 20px);
   height: 100vh;
-  padding: var(--grid-padding-top, 92px) var(--grid-padding-side, 20px) var(--grid-padding-bottom, 20px) var(--grid-padding-side, 20px);
+  padding: var(--grid-padding-top, 86px) var(--grid-padding-side, 20px) var(--grid-padding-bottom, 18px) var(--grid-padding-side, 20px);
   position: relative;
   z-index: 10;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .column {
@@ -794,11 +796,12 @@ header {
   position: relative;
   width: 100%;
   height: 100%;
+  aspect-ratio: 9 / 16;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #050608;
+  background: #000000;
 }
 
 .reels-stage video, .reels-stage img {
@@ -923,11 +926,12 @@ header {
   position: relative;
   width: 100%;
   height: 100%;
+  aspect-ratio: 3 / 4;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #050608;
+  background: #000000;
 }
 
 .posts-stage img {
@@ -942,81 +946,6 @@ header {
 
 .posts-stage.posts-zoom-anim img {
   transform: scale(1.08);
-}
-
-.fullscreen-toggle-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #f1f5f9;
-  padding: 6px 14px;
-  border-radius: 9999px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transition: all 0.25s var(--apple-ease);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-  font-family: inherit;
-}
-
-.fullscreen-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-}
-
-.fullscreen-toggle-btn .fs-icon {
-  font-size: 0.88rem;
-}
-
-.fullscreen-prompt-capsule {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(18, 18, 22, 0.88);
-  border: 1px solid rgba(227, 30, 36, 0.65);
-  color: #ffffff;
-  font-size: 0.82rem;
-  font-weight: 700;
-  padding: 8px 20px;
-  border-radius: 9999px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(227, 30, 36, 0.35);
-  cursor: pointer;
-  z-index: 150;
-  transition: all 0.35s var(--apple-ease);
-  animation: prompt-pulse 2.8s infinite ease-in-out;
-}
-
-.fullscreen-prompt-capsule.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateX(-50%) translateY(16px);
-}
-
-@keyframes prompt-pulse {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(227, 30, 36, 0.3);
-    border-color: rgba(227, 30, 36, 0.5);
-  }
-  50% {
-    transform: translateX(-50%) translateY(-3px);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.85), 0 0 26px rgba(227, 30, 36, 0.7);
-    border-color: rgba(227, 30, 36, 0.95);
-  }
 }
 
 /* Legacy web stream frame fallback (if needed) */

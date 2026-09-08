@@ -628,6 +628,8 @@ document.addEventListener('click', (e) => {
 // ==========================================
 // 12.B ADAPTIVE SCREEN ENGINE (CİHAZ VE EKRAN ANALİZ SİSTEMİ)
 // ==========================================
+// 12.B DİNAMİK CİHAZ & EKRAN ANALİZ MOTORU (9:16 REELS & 3:4 GÖNDERİ MATEMATİKSEL UYARLAMA)
+// ==========================================
 const AdaptiveScreenEngine = {
   profile: 'standard',
 
@@ -637,58 +639,87 @@ const AdaptiveScreenEngine = {
     const ratio = width / height;
     const root = document.documentElement;
 
-    // Sütun Oranları Stratejisi:
-    // Sol Kolon (Yorumlar): ~28-30%
-    // Orta Kolon (Reels): ~35-36%
-    // Sağ Kolon (Instagram Gönderileri): ~35-36%
+    let headerH = 68;
+    let gridGap = 20;
+    let paddingSide = 20;
+    let paddingBottom = 18;
+
     if (width >= 2400) {
       // 4K Ultra HD Showroom TV
       this.profile = '4k-tv';
-      root.style.setProperty('--col-left-width', '0.90fr');
-      root.style.setProperty('--col-mid-width', '1.16fr');
-      root.style.setProperty('--col-right-width', '1.16fr');
-      root.style.setProperty('--header-height', '84px');
-      root.style.setProperty('--grid-gap', '24px');
-      root.style.setProperty('--card-padding', '22px');
+      headerH = 82;
+      gridGap = 24;
+      paddingSide = 26;
+      paddingBottom = 22;
       root.style.setProperty('--card-font-scale', '1.08');
     } else if (width >= 1600 && height >= 850) {
       // Full HD 1080p Smart TV / Kiosk Display
       this.profile = 'fhd-tv';
-      root.style.setProperty('--col-left-width', '0.92fr');
-      root.style.setProperty('--col-mid-width', '1.15fr');
-      root.style.setProperty('--col-right-width', '1.15fr');
-      root.style.setProperty('--header-height', '72px');
-      root.style.setProperty('--grid-gap', '20px');
-      root.style.setProperty('--card-padding', '18px');
+      headerH = 68;
+      gridGap = 20;
+      paddingSide = 22;
+      paddingBottom = 18;
       root.style.setProperty('--card-font-scale', '1.0');
     } else if (width >= 1150) {
-      // Laptop / Pencere Modu (1366x768 / 1440x900)
+      // Laptop / 1366x768 / 1440x900
       this.profile = 'laptop';
-      root.style.setProperty('--col-left-width', '0.88fr');
-      root.style.setProperty('--col-mid-width', '1.18fr');
-      root.style.setProperty('--col-right-width', '1.18fr');
-      root.style.setProperty('--header-height', '66px');
-      root.style.setProperty('--grid-gap', '14px');
-      root.style.setProperty('--card-padding', '14px');
-      root.style.setProperty('--card-font-scale', '0.92');
+      headerH = 62;
+      gridGap = 16;
+      paddingSide = 16;
+      paddingBottom = 14;
+      root.style.setProperty('--card-font-scale', '0.94');
     } else {
-      // Tablet / Kompakt Ekran (< 1150px)
+      // Kompakt / Tablet (< 1150px)
       this.profile = 'compact';
-      root.style.setProperty('--col-left-width', '1fr');
-      root.style.setProperty('--col-mid-width', '1.12fr');
-      root.style.setProperty('--col-right-width', '1.12fr');
-      root.style.setProperty('--header-height', '62px');
-      root.style.setProperty('--grid-gap', '12px');
-      root.style.setProperty('--card-padding', '12px');
+      headerH = 56;
+      gridGap = 12;
+      paddingSide = 12;
+      paddingBottom = 12;
       root.style.setProperty('--card-font-scale', '0.86');
     }
 
-    const headerH = parseInt(root.style.getPropertyValue('--header-height')) || 70;
-    root.style.setProperty('--grid-padding-top', `${headerH + 20}px`);
+    const paddingTop = headerH + 16;
+    root.style.setProperty('--header-height', `${headerH}px`);
+    root.style.setProperty('--grid-padding-top', `${paddingTop}px`);
+    root.style.setProperty('--grid-padding-bottom', `${paddingBottom}px`);
+    root.style.setProperty('--grid-padding-side', `${paddingSide}px`);
+    root.style.setProperty('--grid-gap', `${gridGap}px`);
+
+    // Sütun başlığı yüksekliği ~44px
+    const colHeaderH = 44;
+    const totalVerticalPadding = paddingTop + paddingBottom;
+    let stageH = height - totalVerticalPadding - colHeaderH;
+
+    // Kullanıcının istediği kesin oranlar:
+    // Orta Reels: 9 / 16 (0.5625)
+    // Sağ Gönderi: 3 / 4 (0.75)
+    let reelsW = stageH * (9 / 16);
+    let postsW = stageH * (3 / 4);
+
+    // Kalan genişliğin Sol Yorum Sütununu korumasını sağla:
+    const totalGapsAndPadding = (2 * gridGap) + (2 * paddingSide);
+    const availableWidthForColumns = width - totalGapsAndPadding;
+    let leftColW = availableWidthForColumns - (reelsW + postsW);
+
+    const minLeftWidth = width < 1200 ? 280 : 340;
+    if (leftColW < minLeftWidth) {
+      // Eğer sol sütun dar kalırsa, 9:16 ve 3:4 oranlarını koruyarak yüksekliği ve genişlikleri ölçekle:
+      // (9/16 + 3/4) = 1.3125
+      const maxCombinedWidth = availableWidthForColumns - minLeftWidth;
+      stageH = maxCombinedWidth / 1.3125;
+      reelsW = stageH * (9 / 16);
+      postsW = stageH * (3 / 4);
+      leftColW = availableWidthForColumns - (reelsW + postsW);
+    }
+
+    root.style.setProperty('--stage-height', `${Math.round(stageH)}px`);
+    root.style.setProperty('--reels-col-width', `${Math.round(reelsW)}px`);
+    root.style.setProperty('--posts-col-width', `${Math.round(postsW)}px`);
+    root.style.setProperty('--col-left-width', `${Math.round(leftColW)}px`);
 
     document.documentElement.setAttribute('data-device-profile', this.profile);
     document.body.setAttribute('data-device-profile', this.profile);
-    console.log(`[ScreenEngine] Cihaz profili analiz edildi ve uyarlandı: ${this.profile} (${width}x${height}, oran: ${ratio.toFixed(2)})`);
+    console.log(`[ScreenEngine] Orantılı Geometri (${this.profile}): Reels=${Math.round(reelsW)}px (9:16), Posts=${Math.round(postsW)}px (3:4), Reviews=${Math.round(leftColW)}px, StageH=${Math.round(stageH)}px`);
   },
 
   init() {
@@ -812,21 +843,6 @@ window.addEventListener('load', () => {
 });
 
 function updateFullscreenStatus() {
-  const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-  const label = document.getElementById('fsLabel');
-  const icon = document.getElementById('fsIcon');
-  if (label) label.innerText = isFull ? 'Tam Ekrandan Çık' : 'Tam Ekran';
-  if (icon) icon.innerText = isFull ? '✖️' : '⛶';
-
-  const capsule = document.getElementById('fullscreenPromptCapsule');
-  if (capsule) {
-    if (isFull) {
-      capsule.classList.add('hidden');
-    } else {
-      capsule.classList.remove('hidden');
-    }
-  }
-
   AdaptiveScreenEngine.analyzeAndAdapt();
 }
 

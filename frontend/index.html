@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3.1">
+  <link rel="stylesheet" href="css/style.css?v=4.0">
 </head>
 <body class="theme-dark">
 
@@ -21,12 +21,6 @@
   <!-- HEADER (MACOS FLOATING FROSTED DYNAMIC BAR - CENTERED LOGO) -->
   <header>
     <div class="header-left">
-      <div class="store-badge-rating" id="storeRatingBadge">
-        <span class="star-icon">&#9733;</span>
-        <span class="rating-num">5.0</span>
-        <span class="rating-sub">(Google Yorumları)</span>
-      </div>
-
       <div class="store-weather-badge" id="weatherBadge" title="Canlı Kadıköy Hava Durumu">
         <span class="weather-icon" id="weatherIcon">☀️</span>
         <span class="weather-temp" id="weatherTemp">23°C</span>
@@ -51,11 +45,6 @@
     </div>
 
     <div class="header-right">
-      <button class="fullscreen-toggle-btn" id="btnFullscreenToggle" title="Tam Ekran Kiosk Modunu Aç/Kapat (F11)" onclick="toggleFullscreen()">
-        <span class="fs-icon" id="fsIcon">⛶</span>
-        <span class="fs-label" id="fsLabel">Tam Ekran</span>
-      </button>
-
       <div class="header-clock-group">
         <div class="header-date" id="liveDate">--</div>
         <div class="header-clock" id="liveClock">12:00:00</div>
@@ -73,14 +62,13 @@
           <span class="col-title-indicator"></span>
           <span class="col-title" id="title-left">Müşteri Yorumları</span>
         </div>
-        <div class="col-meta" id="meta-left">&#9733; 5.0 &bull; Google Değerlendirmeleri</div>
       </div>
       <div class="stream-viewport" id="vp-left">
         <div class="stream-runner" id="runner-left"></div>
       </div>
     </section>
 
-    <!-- ORTA: AKILLI TV REELS OYNATICI (SES KAPALI / 8'Lİ DÖNGÜ) -->
+    <!-- ORTA: AKILLI TV REELS OYNATICI (9:16 DİKEY REELS DÖNGÜSÜ) -->
     <section class="column" id="col-mid">
       <div class="col-header">
         <div class="col-title-wrap">
@@ -105,7 +93,7 @@
       </div>
     </section>
 
-    <!-- SAĞ: 2 INSTAGRAM HESABI GÖNDERİ VİTRİNİ (TEMİZ GÖRÜNÜM / 20 GÖNDERİ) -->
+    <!-- SAĞ: 2 INSTAGRAM HESABI GÖNDERİ VİTRİNİ (3:4 GÖNDERİ ORANI / TEMİZ GÖRÜNÜM / 20 GÖNDERİ) -->
     <section class="column" id="col-right">
       <div class="col-header">
         <div class="col-title-wrap">
@@ -118,7 +106,7 @@
         </div>
       </div>
 
-      <!-- POSTS PLAYER COMPONENT (REELS GİBİ TAM BOY VE TEMİZ) -->
+      <!-- POSTS PLAYER COMPONENT (3:4 ORANINDA REELS GİBİ TAM BOY VE TEMİZ) -->
       <div class="posts-player-container" id="postsPlayerContainer" onclick="advanceToNextPost()" title="Sonraki Gönderiye Geçmek İçin Dokunun">
         <div class="posts-progress-wrap">
           <div class="posts-progress-fill" id="postProgressBar"></div>
@@ -131,12 +119,6 @@
 
   </main>
 
-  <!-- OTOMATİK TAM EKRAN ÇAĞRI ROZETİ (GÜVENLİK KISITLAMASINI ÇÖZEN TEK DOKUNUŞ BARI) -->
-  <div class="fullscreen-prompt-capsule" id="fullscreenPromptCapsule" onclick="toggleFullscreen()" title="Tam Ekran Kiosk Modunu Başlat">
-    <span class="prompt-icon">⛶</span>
-    <span class="prompt-text">Tam Ekran Modu İçin Dokunun (F11)</span>
-  </div>
-
   <!-- SAĞ ALT GÖRÜNÜR BUZLU CAM SENKRONİZASYON BUTONU -->
   <button class="sync-counter" id="btnManualSync" title="Anında Eşitlemek ve Sistemi Analiz Etmek İçin Dokunun" onclick="triggerManualSync()">
     <span class="sync-icon" id="syncSpinIcon">🔄</span>
@@ -144,19 +126,17 @@
     <span class="sync-countdown" id="countdown">60:00</span>
   </button>
 
-  <!-- BİLGİLENDİRME TOAST BİLEŞENİ -->
-  <div class="toast-notification" id="toastBox">İşlem tamamlandı</div>
+  <!-- BİLDİRİM TOAST BİLEŞENİ -->
+  <div class="toast-notification" id="toastBox">
+    <span class="toast-icon">ℹ️</span>
+    <span class="toast-message" id="toastMsg">Sistem hazır</span>
+  </div>
 
-  <!-- KART DETAY / İNCELEME MODALI -->
-  <div class="modal-overlay" id="cardDetailModal" onclick="closeCardDetailModal(event)">
-    <div class="modal-box modal-detail-box" onclick="event.stopPropagation()">
-      <div class="modal-header-row">
-        <div class="detail-badge" id="detailBadge">MÜŞTERİ DEĞERLENDİRMESİ</div>
-        <button class="modal-close-x" onclick="closeCardDetailModal()">&times;</button>
-      </div>
-      <div class="detail-content" id="detailContent">
-        <!-- Tıklanan kartın detayları buraya aktarılır -->
-      </div>
+  <!-- KART DETAY MODALI (YORUM OKUMA) -->
+  <div class="card-detail-modal" id="cardDetailModal" onclick="closeCardDetailModal()">
+    <div class="modal-card-glass" onclick="event.stopPropagation()">
+      <div class="modal-close-pill" onclick="closeCardDetailModal()">ESC ✕</div>
+      <div class="detail-scroll-area" id="detailContent"></div>
       <div class="detail-footer" style="margin-top:20px;">
         <button class="modal-btn" style="width:100%;" onclick="closeCardDetailModal()">Kapat (ESC)</button>
       </div>
@@ -178,8 +158,8 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="js/fallback-data.js?v=3.1"></script>
-  <script src="js/virtual-scroller.js?v=3.1"></script>
-  <script src="js/app.js?v=3.1"></script>
+  <script src="js/fallback-data.js?v=4.0"></script>
+  <script src="js/virtual-scroller.js?v=4.0"></script>
+  <script src="js/app.js?v=4.0"></script>
 </body>
 </html>
