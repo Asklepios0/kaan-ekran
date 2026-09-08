@@ -8,24 +8,13 @@
  * - Çift yönlü tam ekran desteği ve Apple tarzı kontrol merkezi
  */
 
-window.isKioskMuted = false;
+window.isKioskMuted = true;
 let isPaused = false;
 let currentSpeedMultiplier = 1.0;
 let toastTimeout = null;
 
-// Tarayıcı autoplay politikası gerektirirse ilk tıklama veya tam ekran butonunda sesi anında aç
-const enableAudioOnInteraction = () => {
-  window.isKioskMuted = false;
-  const vid = document.getElementById('activeReelVideo');
-  if (vid) vid.muted = false;
-};
-['click', 'touchstart', 'keydown'].forEach(evt => {
-  document.addEventListener(evt, enableAudioOnInteraction, { once: true, passive: true });
-});
-
 const fallbackData = (typeof window !== 'undefined' && window.KIOSK_FALLBACK) ? window.KIOSK_FALLBACK : {};
 
-// Media URL resolver (supports local server, GitHub Pages subpaths, and root paths)
 // Media URL resolver (supports local server, GitHub Pages subpaths, and root paths)
 function resolveMediaUrl(url) {
   const isInsideFrontend = typeof window !== 'undefined' && window.location.pathname.includes('/frontend');
@@ -58,7 +47,7 @@ function resolveMediaUrl(url) {
 }
 
 let state = {
-  reviews: fallbackData.reviews || [],
+  reviews: (fallbackData.reviews || []).filter(r => Number(r.stars) === 5),
   reels: fallbackData.reels || [],
   posts: fallbackData.posts || [],
   channels: fallbackData.channels || {},
@@ -151,11 +140,6 @@ async function initWeather() {
       if (weatherIcon) weatherIcon.innerText = icon;
       if (weatherTemp) weatherTemp.innerText = `${temp}°C`;
       if (weatherWind) weatherWind.innerText = `💨 ${wind} km/s`;
-
-      // Update theme if not manually overridden
-      if (current.is_day !== undefined && manualTheme === null) {
-        applyTheme(current.is_day === 1 ? 'light' : 'dark');
-      }
     } catch (e) {
       console.warn('[Weather] Weather fetch failed:', e);
     }
@@ -166,64 +150,28 @@ async function initWeather() {
 }
 
 // ==========================================
-// 4. DİNAMİK GÜNDÜZ / GECE TEMASI
+// 4. SABİT OLED SİYAH TEMA
 // ==========================================
-let manualTheme = null; // 'light' or 'dark'
-
-function isDaytime() {
-  const now = new Date();
-  const hour = now.getHours() + now.getMinutes() / 60;
-  return (hour >= 6.5 && hour < 19.5);
-}
-
-function applyTheme(mode) {
+function applyTheme(mode = 'dark') {
   const body = document.body;
-  const themeLabel = document.getElementById('themeLabel');
-  const themeIcon = document.getElementById('themeIcon');
-
-  if (mode === 'light') {
-    body.classList.remove('theme-dark');
-    body.classList.add('theme-light');
-    if (themeIcon) themeIcon.innerText = '☀️';
-    if (themeLabel) themeLabel.innerText = 'Koyu Temaya Geç';
-  } else {
-    body.classList.remove('theme-light');
-    body.classList.add('theme-dark');
-    if (themeIcon) themeIcon.innerText = '🌙';
-    if (themeLabel) themeLabel.innerText = 'Açık Temaya Geç';
-  }
+  body.classList.remove('theme-light');
+  body.classList.add('theme-dark');
 
   const imgLogo = document.getElementById('imgLogo');
   if (imgLogo) {
     const isInsideFrontend = window.location.pathname.includes('/frontend');
     const prefix = isInsideFrontend ? 'assets/' : 'frontend/assets/';
-    imgLogo.src = mode === 'light' ? prefix + 'logo-dark.svg' : prefix + 'logo.svg';
-  }
-
-  const frame = document.getElementById('webStreamFrame');
-  if (frame && frame.contentWindow) {
-    frame.contentWindow.postMessage({ type: 'THEME_CHANGE', mode: mode }, '*');
+    imgLogo.src = prefix + 'logo.svg';
   }
 }
 
 function initTheme() {
-  const initialMode = isDaytime() ? 'light' : 'dark';
-  applyTheme(initialMode);
-  // Check hourly
-  setInterval(() => {
-    if (manualTheme === null) {
-      applyTheme(isDaytime() ? 'light' : 'dark');
-    }
-  }, 60000);
+  applyTheme('dark');
 }
 
 function toggleTheme() {
-  const isCurrentlyLight = document.body.classList.contains('theme-light');
-  manualTheme = isCurrentlyLight ? 'dark' : 'light';
-  applyTheme(manualTheme);
-  showToast(manualTheme === 'light' ? '☀️ Gündüz Açık Teması Devrede' : '🌙 Gece Koyu Teması Devrede');
-  const menu = document.getElementById('controlsMenu');
-  if (menu) menu.style.display = 'none';
+  applyTheme('dark');
+  showToast('🌙 OLED Siyah Koyu Tema Sabitlendi');
 }
 
 // ==========================================
@@ -338,7 +286,7 @@ async function fetchFeedData(silent = false) {
 
     if (!data) throw new Error('Veri kaynağı bulunamadı.');
 
-    state.reviews = data.reviews || [];
+    state.reviews = (data.reviews || []).filter(r => Number(r.stars) === 5);
     state.reels = data.reels || [];
     state.posts = data.posts || [];
     state.channels = data.channels || {};
@@ -352,6 +300,10 @@ async function fetchFeedData(silent = false) {
     // Update reels player dataset and refresh display
     updateReelsPlayerDataset();
     playReel(activeReelIndex);
+
+    // Update posts player dataset and refresh display
+    updatePostsPlayerDataset();
+    playPost(activePostIndex);
 
     if (statusDot) statusDot.className = 'status-dot';
     if (statusSpan) statusSpan.innerText = 'CANLI YAYIN';
@@ -464,7 +416,7 @@ function playReel(idx) {
     if (posterEl) posterEl.style.display = 'none';
     videoEl.style.display = 'block';
 
-    videoEl.muted = window.isKioskMuted;
+    videoEl.muted = true;
     videoEl.playsInline = true;
 
     // Set source
@@ -504,6 +456,110 @@ function advanceToNextReel() {
   const list = getOrderedReels();
   if (list.length === 0) return;
   playReel(activeReelIndex + 1);
+}
+
+// ==========================================
+// 10.B INSTAGRAM GÖNDERİ OYNATICI (SAĞ KOLON)
+// 10 adet @kaanelektronikk + 10 adet @knmasterofficial (Toplam 20 Gönderi)
+// ==========================================
+let activePostIndex = 0;
+let postStepTimer = null;
+let postProgressInterval = null;
+const POST_DURATION_MS = 6500;
+
+function getOrderedPosts() {
+  const allPosts = state.posts || [];
+  if (allPosts.length === 0) return [];
+  const kaan = allPosts.filter(p => (p.author || '').toLowerCase().includes('kaanelektronik')).slice(0, 10);
+  const kn = allPosts.filter(p => (p.author || '').toLowerCase().includes('knmaster')).slice(0, 10);
+
+  const list = [];
+  const maxLen = Math.max(kaan.length, kn.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (i < kaan.length) list.push(kaan[i]);
+    if (i < kn.length) list.push(kn[i]);
+  }
+  return list.length > 0 ? list : allPosts.slice(0, 20);
+}
+
+function updatePostsPlayerDataset() {
+  const list = getOrderedPosts();
+  const counterMeta = document.getElementById('postCounterMeta');
+  if (counterMeta) {
+    counterMeta.innerText = `${activePostIndex + 1}/${list.length}`;
+  }
+}
+
+function initPostsPlayer() {
+  const list = getOrderedPosts();
+  if (!list || list.length === 0) return;
+  playPost(0);
+}
+
+function playPost(idx) {
+  const list = getOrderedPosts();
+  if (!list || list.length === 0) return;
+  activePostIndex = (idx + list.length) % list.length;
+  const post = list[activePostIndex];
+
+  const imgEl = document.getElementById('activePostImg');
+  const stageEl = document.getElementById('postsStage');
+  const authorBadge = document.getElementById('postAuthorBadge');
+  const accountMeta = document.getElementById('postAccountMeta');
+  const counterMeta = document.getElementById('postCounterMeta');
+  const captionText = document.getElementById('postCaptionText');
+  const tagBadge = document.getElementById('postTagBadge');
+  const progressFill = document.getElementById('postProgressBar');
+
+  const author = post.author || '@knmasterofficial';
+  if (authorBadge) authorBadge.innerText = author;
+  if (accountMeta) accountMeta.innerText = author;
+  if (counterMeta) counterMeta.innerText = `${activePostIndex + 1}/${list.length}`;
+  if (captionText) captionText.innerText = post.text || post.title || 'KnMaster Motosiklet Ekipmanları & Aksesuarları';
+  if (tagBadge) tagBadge.innerText = post.tag || 'Gönderi';
+
+  if (postProgressInterval) clearInterval(postProgressInterval);
+  if (postStepTimer) clearTimeout(postStepTimer);
+  if (progressFill) progressFill.style.width = '0%';
+
+  if (stageEl) {
+    stageEl.classList.remove('posts-zoom-anim');
+    void stageEl.offsetWidth; // force reflow
+    stageEl.classList.add('posts-zoom-anim');
+  }
+
+  const imgSrc = resolveMediaUrl(post.img || post.imageUrl || `assets/posts/post-kaanelektronikk-${(activePostIndex % 10) + 1}.jpg`);
+  if (imgEl) {
+    imgEl.style.opacity = '0.35';
+    imgEl.src = imgSrc;
+    imgEl.onload = () => {
+      imgEl.style.opacity = '1';
+    };
+    imgEl.onerror = () => {
+      imgEl.style.opacity = '1';
+    };
+  }
+
+  // Smooth progress bar animation
+  const startTime = Date.now();
+  postProgressInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min(100, (elapsed / POST_DURATION_MS) * 100);
+    if (progressFill) progressFill.style.width = `${pct}%`;
+    if (pct >= 100) {
+      clearInterval(postProgressInterval);
+    }
+  }, 50);
+
+  postStepTimer = setTimeout(() => {
+    advanceToNextPost();
+  }, POST_DURATION_MS);
+}
+
+function advanceToNextPost() {
+  const list = getOrderedPosts();
+  if (list.length === 0) return;
+  playPost(activePostIndex + 1);
 }
 
 // ==========================================
@@ -565,21 +621,26 @@ document.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// 13. ÇİFT YÖNLÜ TAM EKRAN DESTEĞİ
+// 13. OTOMATİK TAM EKRAN (VARSAYILAN AKTİF)
 // ==========================================
+function autoRequestFullscreen() {
+  const doc = document;
+  const isFull = !!(doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement);
+  if (!isFull) {
+    const el = doc.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+    if (req) {
+      req.call(el).catch(() => {});
+    }
+  }
+}
+
 function toggleFullscreen() {
   const doc = document;
   const isFull = !!(doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement);
   
   if (!isFull) {
-    const el = doc.documentElement;
-    if (el.requestFullscreen) {
-      el.requestFullscreen().catch(() => {});
-    } else if (el.webkitRequestFullscreen) {
-      el.webkitRequestFullscreen();
-    } else if (el.msRequestFullscreen) {
-      el.msRequestFullscreen();
-    }
+    autoRequestFullscreen();
   } else {
     if (doc.exitFullscreen) {
       doc.exitFullscreen().catch(() => {});
@@ -589,17 +650,18 @@ function toggleFullscreen() {
       doc.msExitFullscreen();
     }
   }
-
-  const menu = document.getElementById('controlsMenu');
-  if (menu) menu.style.display = 'none';
 }
 
+// Otomatik tam ekran denemesi (Açılışta ve ilk kullanıcı dokunuşunda)
+window.addEventListener('load', () => {
+  setTimeout(autoRequestFullscreen, 600);
+});
+['click', 'touchstart', 'keydown'].forEach(evt => {
+  document.addEventListener(evt, autoRequestFullscreen, { once: true, passive: true });
+});
+
 function updateFullscreenStatus() {
-  const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-  const label = document.getElementById('fullscreenLabel');
-  const icon = document.getElementById('fullscreenIcon');
-  if (label) label.innerText = isFull ? 'Tam Ekrandan Çık' : 'Tam Ekran';
-  if (icon) icon.innerText = isFull ? '✖️' : '⛶';
+  // Durum takibi
 }
 
 document.addEventListener('fullscreenchange', updateFullscreenStatus);
@@ -610,23 +672,11 @@ document.addEventListener('webkitfullscreenchange', updateFullscreenStatus);
 // ==========================================
 function toggleAudio() {
   window.isKioskMuted = !window.isKioskMuted;
-  const audioIcon = document.getElementById('audioIcon');
-  const audioLabel = document.getElementById('audioLabel');
   const activeVideo = document.getElementById('activeReelVideo');
-
   if (activeVideo) {
     activeVideo.muted = window.isKioskMuted;
   }
-
-  if (window.isKioskMuted) {
-    if (audioIcon) audioIcon.innerText = '🔇';
-    if (audioLabel) audioLabel.innerText = 'Sesi Aç';
-    showToast('🔇 Ses kapatıldı.');
-  } else {
-    if (audioIcon) audioIcon.innerText = '🔊';
-    if (audioLabel) audioLabel.innerText = 'Sesi Kapat';
-    showToast('🔊 Ses açıldı!');
-  }
+  showToast(window.isKioskMuted ? '🔇 Ses kapatıldı.' : '🔊 Ses açıldı!');
 }
 
 function togglePause() {
@@ -638,12 +688,15 @@ function togglePause() {
   if (isPaused) {
     scrollers.left?.pause();
     if (activeVideo) activeVideo.pause();
+    if (postStepTimer) clearTimeout(postStepTimer);
+    if (postProgressInterval) clearInterval(postProgressInterval);
     if (pauseIcon) pauseIcon.innerText = '▶️';
     if (pauseLabel) pauseLabel.innerText = 'Devam Et';
     showToast('⏸️ Akış duraklatıldı.');
   } else {
     scrollers.left?.resume();
     if (activeVideo && activeVideo.style.display !== 'none') activeVideo.play().catch(() => {});
+    playPost(activePostIndex);
     if (pauseIcon) pauseIcon.innerText = '⏸️';
     if (pauseLabel) pauseLabel.innerText = 'Durdur';
     showToast('▶️ Akış devam ediyor.');
@@ -674,18 +727,12 @@ function triggerManualSync() {
   syncSeconds = 3600;
   const syncIcon = document.getElementById('syncSpinIcon');
   if (syncIcon) syncIcon.classList.add('spinning');
-  showToast('🔄 Senkronizasyon yapılıyor: Mağaza ve Reels güncelleniyor...');
+  showToast('🔄 Senkronizasyon yapılıyor: Yorumlar, Reels ve Gönderiler güncelleniyor...');
 
-  // 1. Sağ sütundaki gerçek kaanelektronik.com mobil iframe'ini önbellek kırıcıyla yenile
-  const webStreamFrame = document.getElementById('webStreamFrame');
-  if (webStreamFrame) {
-    webStreamFrame.src = 'mobile-site.html?_t=' + Date.now();
-  }
-
-  // 2. Arka plan yerel sunucu aktifse /api/sync-now tetikle
+  // Arka plan yerel sunucu aktifse /api/sync-now tetikle
   fetch('/api/sync-now').catch(() => {});
 
-  // 3. Güncel verileri çek ve ekranı tazele
+  // Güncel verileri çek ve ekranı tazele
   fetchFeedData(false);
 }
 
@@ -695,6 +742,8 @@ function resetColumn(colId) {
     initReelsPlayer();
   } else if (colId === 'col-left') {
     scrollers.left?.updateDataset(state.reviews);
+  } else if (colId === 'col-right') {
+    initPostsPlayer();
   }
   showToast('Varsayılan düzene dönüldü.');
 }
@@ -745,6 +794,8 @@ function initKeyboardShortcuts() {
       toggleTheme();
     } else if (e.key === 'ArrowRight') {
       advanceToNextReel();
+    } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+      advanceToNextPost();
     } else if (e.key === 'r' || e.key === 'R') {
       triggerManualSync();
     } else if (e.key === 'Escape') {
@@ -766,20 +817,20 @@ window.addEventListener('DOMContentLoaded', () => {
   initBurnInProtection();
   initKeyboardShortcuts();
   
-  // Sol Kolon: Yorumlar anında başlasın
+  // Sol Kolon: 5 Yıldızlı Yorumlar anında başlasın
   if (!scrollers.left && state.reviews.length > 0) {
     initScrollers();
   }
 
-  // Orta Kolon: Reels oynatıcı başlasın
+  // Orta Kolon: Reels oynatıcı başlasın (Sesi Kapalı)
   initReelsPlayer();
 
-  // Sağ Kolon: Mağaza iframe'i taze zaman damgasıyla başlasın
-  const webStreamFrame = document.getElementById('webStreamFrame');
-  if (webStreamFrame) {
-    webStreamFrame.src = 'mobile-site.html?_t=' + Date.now();
-  }
+  // Sağ Kolon: 20 Instagram Gönderi Vitrini başlasın
+  initPostsPlayer();
 
-  // Sabah açılışında veya sayfa yenilenmesinde arka planda en güncel verileri çek ve senkronize et
+  // Otomatik tam ekran denemesi
+  autoRequestFullscreen();
+
+  // Arka planda en güncel verileri çek ve senkronize et
   fetchFeedData(true);
 });
