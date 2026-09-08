@@ -7,7 +7,7 @@ const FALLBACK_DATA = {
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-09-08T13:24:04.380597",
+  "lastSync": "2026-09-08T17:49:24.096549",
   "reviews": [
     {
       "id": "gmap-b7fce0d765",
@@ -375,7 +375,7 @@ const FALLBACK_DATA = {
     },
     {
       "id": "reel-3",
-      "title": "KN TAG1 işinize çok yarayacak ! Google Find My Device (Cihazımı Bul) ağı ile tam uyumlu çalışan, kişisel eşyalarınızı kolayca takip etmenizi sağlayan bir takip ",
+      "title": "KN TAG1 işinize çok yarayacak ! Google Find My Device (Cihazımı Bul) ağı ile tam uyumlu çalışan, kişisel eşyalarınızı kolayca takip etmenizi sağlayan bir takip",
       "tag": "Güvenlik & Takip",
       "author": "@kaanelektronikk",
       "img": "assets/reels/reel-3.jpg",
@@ -385,7 +385,7 @@ const FALLBACK_DATA = {
     },
     {
       "id": "reel-4",
-      "title": "Kameranız için doğru aparat burada! 📸🏍️\n\nFarklı kullanım alanlarına uygun kamera bağlantı aparatlarımızı videoda kısaca gösterdik.\nİhtiyacınıza uygun modeli ve ",
+      "title": "Kameranız için doğru aparat burada! 📸🏍️\n\nFarklı kullanım alanlarına uygun kamera bağlantı aparatlarımızı videoda kısaca gösterdik.\nİhtiyacınıza uygun modeli ve",
       "tag": "Kamera Aparatları",
       "author": "@kaanelektronikk",
       "img": "assets/reels/reel-4.jpg",
@@ -405,7 +405,7 @@ const FALLBACK_DATA = {
     },
     {
       "id": "reel-6",
-      "title": "Motosikletin havasını değiştiren detaylardan. 👀🏍️\n\nSpirit Beast LED’li Elcik Koruma’yı yakından inceledik.\nHem görünümü hem de işleviyle oldukça dikkat çekici. ",
+      "title": "Motosikletin havasını değiştiren detaylardan. 👀🏍️\n\nSpirit Beast LED’li Elcik Koruma’yı yakından inceledik.\nHem görünümü hem de işleviyle oldukça dikkat çekici",
       "tag": "Elcik Koruma",
       "author": "@knmasterofficial",
       "img": "assets/reels/reel-6.jpg",
