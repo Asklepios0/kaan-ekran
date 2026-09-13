@@ -7,7 +7,7 @@ const FALLBACK_DATA = {
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-09-13T20:42:06.444218",
+  "lastSync": "2026-09-13T22:59:31.023039",
   "reviews": [
     {
       "id": "gmap-b7fce0d765",
