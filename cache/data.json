@@ -6,8 +6,17 @@
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-10-26T16:37:46.362803",
+  "lastSync": "2026-10-26T21:27:38.459505",
   "reviews": [
+    {
+      "id": "gmap-f3aa5448fc",
+      "name": "Ali Candan",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Öncelikle Nehir hanıma hızlı geri dönüşü ve çözümcül yaklaşımı için çok teşekkür ederim, merak ettiğim ne varsa yanıtladı bilgilendirdi.\nVe ürün gerçekten çok kaliteli parasından fazlasını hakediyor. Satış sonrası destek, mağaza iletişimi çok iyi.",
+      "isNew": false
+    },
     {
       "id": "gmap-c61ef0da4a",
       "name": "Mertovski",
