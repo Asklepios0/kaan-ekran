@@ -6,8 +6,53 @@
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-10-26T03:45:59.595532",
+  "lastSync": "2026-10-26T09:53:00.499680",
   "reviews": [
+    {
+      "id": "gmap-c61ef0da4a",
+      "name": "Mertovski",
+      "date": "3 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "KN2300PRO intercom aldim ankarada motoversal isimli saticidan, neyse kurdum intercomda sesler bi garip geliyodu yani çok tiz şekilde muzik seslerini telefondan bass ayari yaparak anca dinlenebilir hale getirdim yoksa muzik dinlenilmezdi o …",
+      "isNew": false
+    },
+    {
+      "id": "gmap-646d341bbf",
+      "name": "Arda Dağlı",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Garantiye ürün getirdim çok güzel ilgilendiler ürünüm kirliydi temizleyip şarj edip teslim ettiler geç kalmış olmama rağmen teslim sağladılar çok memnunum",
+      "isNew": false
+    },
+    {
+      "id": "gmap-e1d33fbdbe",
+      "name": "BARIŞ EMRE GÜRSOY",
+      "date": "2 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Motor ekipmanları almak için mağazaya gittim ve özellikle Nizami Bey’in ilgisinden çok memnun kaldım. Kendisi oldukça ilgili, güler yüzlü ve bilgiliydi. İhtiyacımı anlayıp doğru yönlendirmeler yaptı, tüm sorularımı sabırla cevapladı. Motor …",
+      "isNew": false
+    },
+    {
+      "id": "gmap-5288c258d0",
+      "name": "Dıdar Rahımov",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Nizami bey çok iyi igilendi ellerine sağlık ürünleride çok güzel kaliteli çok teşekkür ederim her kese tafsiye ederim🥰🙏 …",
+      "isNew": false
+    },
+    {
+      "id": "gmap-4c58afae79",
+      "name": "Zedus",
+      "date": "8 ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Ürünleri gerçekten çok kaliteli, ayrıca taşıma çantası vermeleri de çok güzel. Sena Hanım'a desteği için teşekkür ederim. Buradan beni bu markayla tanıştıran Yücel abiye (ProSofi) selam olsun.",
+      "isNew": false
+    },
     {
       "id": "gmap-b7fce0d765",
       "name": "Mertovski",
