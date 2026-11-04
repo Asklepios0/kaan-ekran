@@ -6,8 +6,17 @@
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-11-03T21:37:25.841681",
+  "lastSync": "2026-11-04T01:59:02.044634",
   "reviews": [
+    {
+      "id": "gmap-60c36f888a",
+      "name": "Sümeyye ÇETİN",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "İntercomumun tekerleği düşmüştü kulaklığı çalışmıyordu. Garantisini iki ay kala bizimle Mert bey ilgilendi. Montajını muhteşem yaptı. Biz çok memnun ve mutlu kaldık çok teşekkür ederiz emeklerine sağlık. ✌️",
+      "isNew": false
+    },
     {
       "id": "gmap-b6c0a795fe",
       "name": "Semavi Erten",
