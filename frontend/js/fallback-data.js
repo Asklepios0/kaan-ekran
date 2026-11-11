@@ -7,8 +7,17 @@ const FALLBACK_DATA = {
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-11-11T02:35:45.392192",
+  "lastSync": "2026-11-11T10:28:42.194563",
   "reviews": [
+    {
+      "id": "gmap-b171860203",
+      "name": "Alper Aydın",
+      "date": "bir hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Herkesin memnun olduğu kadar var. Müşteri memnuniyetini önemsiyorlar. Teşekkür ederim hem satış olan dükkanda hem teknik serviste ilgilendiler. Sırada beklerken diğer müşterilere olan ilgilerini de gördüm. Böyle devam eder umarım. Bol kazançları olsun.",
+      "isNew": false
+    },
     {
       "id": "gmap-4a6e4ce6bd",
       "name": "Atakan Ö",
