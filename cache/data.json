@@ -6,8 +6,26 @@
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-11-14T08:55:09.965605",
+  "lastSync": "2026-11-14T15:39:07.160855",
   "reviews": [
+    {
+      "id": "gmap-d3d2f90738",
+      "name": "Alper Aydın",
+      "date": "2 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Herkesin memnun olduğu kadar var. Müşteri memnuniyetini önemsiyorlar. Teşekkür ederim hem satış olan dükkanda hem teknik serviste ilgilendiler. Sırada beklerken diğer müşterilere olan ilgilerini de gördüm. Böyle devam eder umarım. Bol kazançları olsun.",
+      "isNew": false
+    },
+    {
+      "id": "gmap-9cf37b14a4",
+      "name": "Mehmet Delen",
+      "date": "4 hafta önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Öncelikle GAMZE hanıma çok ama çok teşekkür ederim çok güzel ilgilendi benimle aldığım bir ürün hakkında yardımcı oldu saatlerce uğraştı emeğine saglık 🙏ilgi ve alakası için ve sorunumu halletti ve Kaan elektronik ve knmaster çok teşekkür …",
+      "isNew": false
+    },
     {
       "id": "gmap-24981978a1",
       "name": "Atakan Ö",
