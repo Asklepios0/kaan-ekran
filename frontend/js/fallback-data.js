@@ -7,8 +7,17 @@ const FALLBACK_DATA = {
     "totalReviews": 6153,
     "address": "Eğitim Mh. Azra Sk. No:10 D:C, Kadıköy / İstanbul"
   },
-  "lastSync": "2026-11-17T02:22:11.944994",
+  "lastSync": "2026-11-17T11:34:36.682596",
   "reviews": [
+    {
+      "id": "gmap-cdfcdef0ea",
+      "name": "Mehmet Delen",
+      "date": "bir ay önce",
+      "stars": 5,
+      "starsHtml": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+      "text": "Öncelikle GAMZE hanıma çok ama çok teşekkür ederim çok güzel ilgilendi benimle aldığım bir ürün hakkında yardımcı oldu saatlerce uğraştı emeğine saglık 🙏ilgi ve alakası için ve sorunumu halletti ve Kaan elektronik ve knmaster çok teşekkür …",
+      "isNew": false
+    },
     {
       "id": "gmap-d3d2f90738",
       "name": "Alper Aydın",
